@@ -53,6 +53,20 @@ export async function POST(request: NextRequest) {
         `;
         break;
 
+      case 'workshop-registration':
+        subject = `Atölye Kaydı: ${formData.workshopTitle}`;
+        html = `
+          <h2>Atölye Kaydı</h2>
+          <p><strong>Atölye:</strong> ${formData.workshopTitle}</p>
+          <p><strong>Atölye ID:</strong> ${formData.workshopId}</p>
+          <hr>
+          <p><strong>Ad:</strong> ${formData.ad}</p>
+          <p><strong>Soyad:</strong> ${formData.soyad}</p>
+          <p><strong>Telefon:</strong> ${formData.telefon}</p>
+          <p><strong>E-posta:</strong> ${formData.email}</p>
+        `;
+        break;
+
       default:
         return NextResponse.json({ error: 'Invalid form type' }, { status: 400 });
     }

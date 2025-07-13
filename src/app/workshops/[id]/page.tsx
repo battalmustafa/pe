@@ -176,7 +176,17 @@ export default async function WorkshopDetailPage({ params }: { params: Promise<{
               )}
             </div>
             
-            <Button size="lg" className="w-full">Kayıt Ol</Button>
+            {workshop.status === 'DEVAM_EDIYOR' ? (
+              <Button size="lg" className="w-full" asChild>
+                <Link href={`/workshops/${workshop.id}/kayit`}>
+                  Kayıt Ol
+                </Link>
+              </Button>
+            ) : (
+              <Button size="lg" className="w-full" disabled>
+                {workshop.status === 'TAMAMLANDI' ? 'Atölye Tamamlandı' : 'Kayıt Kapalı'}
+              </Button>
+            )}
           </div>
         </div>
       </div>
