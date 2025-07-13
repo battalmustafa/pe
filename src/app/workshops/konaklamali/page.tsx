@@ -8,18 +8,18 @@ import Link from 'next/link';
 import { getWorkshopsByCategory } from '@/lib/database';
 
 interface Workshop {
-  id: number;
-  title: string;
-  images: string;
-  category: string;
+  id: any;
+  title: any;
+  images: any;
+  category: any;
   startDate: Date;
   endDate: Date;
   startTime: Date;
   endTime: Date;
-  location: string;
-  description: string;
-  capacity?: number;
-  status?: string;
+  location: any;
+  description: any;
+  capacity?: any;
+  status?: any;
 }
 
 function formatDate(date: Date) {
@@ -30,8 +30,11 @@ function formatTime(time: Date) {
   return format(time, "HH:mm", { locale: tr });
 }
 
-function getFirstImage(images: string) {
+function getFirstImage(images: any) {
   try {
+    if (Array.isArray(images)) {
+      return images[0] || '/placeholder-workshop.jpg';
+    }
     const parsedImages = JSON.parse(images);
     return parsedImages[0] || '/placeholder-workshop.jpg';
   } catch (e) {
@@ -40,19 +43,13 @@ function getFirstImage(images: string) {
 }
 
 async function getWorkshops() {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/workshops?category=konaklamali`, {
-    cache: 'no-store',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  
-  if (!res.ok) {
-    throw new Error('Failed to fetch workshops');
+  try {
+    const workshops = await getWorkshopsByCategory('KONAKLAMALI');
+    return workshops;
+  } catch (error) {
+    console.error('Error fetching workshops:', error);
+    return [];
   }
-  
-  return res.json();
 }
 
 export default async function KonaklamaliWorkshopsPage() {
