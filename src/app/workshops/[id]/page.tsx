@@ -53,10 +53,9 @@ function getStatusInfo(status: string) {
   }
 }
 
-export default async function WorkshopDetailPage({ params }: { params: Promise<{ id: string }> | { id: string } }) {
-  // Await params if it's a promise
-  const resolvedParams = await Promise.resolve(params);
-  const workshopId = parseInt(resolvedParams.id);
+export default async function WorkshopDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const workshopId = parseInt(id);
   
   if (isNaN(workshopId)) {
     notFound();

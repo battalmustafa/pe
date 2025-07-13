@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { WorkshopStatus } from '@prisma/client';
 
 // GET endpoint to retrieve all workshops or a specific workshop
 export async function GET(request: Request) {
@@ -154,22 +153,5 @@ export async function DELETE(request: Request) {
   } catch (error) {
     console.error('Error deleting workshop:', error);
     return NextResponse.json({ error: 'Failed to delete workshop' }, { status: 500 });
-  }
-}
-
-export async function GETAllWorkshops() {
-  try {
-    const workshops = await prisma.workshop.findMany({
-      orderBy: {
-        startDate: 'asc',
-      },
-    });
-
-    return NextResponse.json(workshops);
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Failed to fetch workshops' },
-      { status: 500 }
-    );
   }
 } 
