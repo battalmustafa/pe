@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
 import { Button } from '@/components/ui/button';
-import { prisma } from '@/lib/prisma';
 import { Clock, Calendar, MapPin, Users, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
@@ -53,6 +52,22 @@ function getStatusInfo(status: string) {
   }
 }
 
+async function getWorkshop(id: number) {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+  const res = await fetch(`${baseUrl}/api/workshops?id=${id}`, {
+    cache: 'no-store',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  
+  if (!res.ok) {
+    throw new Error('Failed to fetch workshop');
+  }
+  
+  return res.json();
+}
+
 export default async function WorkshopDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const workshopId = parseInt(id);
@@ -61,9 +76,7 @@ export default async function WorkshopDetailPage({ params }: { params: Promise<{
     notFound();
   }
 
-  const workshop = await prisma.workshop.findUnique({
-    where: { id: workshopId },
-  });
+  const workshop = await getWorkshop(workshopId);
 
   if (!workshop) {
     notFound();
