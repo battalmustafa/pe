@@ -7,13 +7,21 @@ import Link from 'next/link';
 import { getWorkshopById } from '@/lib/database';
 
 // Format the date for display
-function formatDate(date: Date) {
-  return format(date, "d MMMM yyyy", { locale: tr });
+function formatDate(date: Date | string) {
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  if (isNaN(dateObj.getTime())) {
+    return 'Tarih belirtilmemiş';
+  }
+  return format(dateObj, "d MMMM yyyy", { locale: tr });
 }
 
 // Format the time for display
-function formatTime(time: Date) {
-  return format(time, "HH:mm", { locale: tr });
+function formatTime(time: Date | string) {
+  const timeObj = typeof time === 'string' ? new Date(time) : time;
+  if (isNaN(timeObj.getTime())) {
+    return 'Saat belirtilmemiş';
+  }
+  return format(timeObj, "HH:mm", { locale: tr });
 }
 
 // Parse the images from the JSON string or array
@@ -140,9 +148,21 @@ export default async function WorkshopDetailPage({ params }: { params: Promise<{
                 <div>
                   <p className="font-medium">Tarih</p>
                   <p className="text-muted-foreground">
-                    {formatDate(new Date(workshop.startDate))}
-                    {new Date(workshop.startDate).toDateString() !== new Date(workshop.endDate).toDateString() && 
-                     ` - ${formatDate(new Date(workshop.endDate))}`}
+                    {(() => {
+                      const startDate = new Date(workshop.startDate);
+                      const endDate = new Date(workshop.endDate);
+                      
+                      if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                        return 'Tarih bilgisi mevcut değil';
+                      }
+                      
+                      const startDateStr = formatDate(startDate);
+                      const endDateStr = formatDate(endDate);
+                      
+                      return startDate.toDateString() === endDate.toDateString() 
+                        ? startDateStr 
+                        : `${startDateStr} - ${endDateStr}`;
+                    })()}
                   </p>
                 </div>
               </div>
@@ -152,7 +172,7 @@ export default async function WorkshopDetailPage({ params }: { params: Promise<{
                 <div>
                   <p className="font-medium">Saat</p>
                   <p className="text-muted-foreground">
-                    {formatTime(new Date(workshop.startTime))} - {formatTime(new Date(workshop.endTime))}
+                    {formatTime(workshop.startTime)} - {formatTime(workshop.endTime)}
                   </p>
                 </div>
               </div>

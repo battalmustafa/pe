@@ -22,12 +22,20 @@ interface Workshop {
   status?: any;
 }
 
-function formatDate(date: Date) {
-  return format(date, "d MMMM yyyy", { locale: tr });
+function formatDate(date: Date | string) {
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  if (isNaN(dateObj.getTime())) {
+    return 'Tarih belirtilmemiş';
+  }
+  return format(dateObj, "d MMMM yyyy", { locale: tr });
 }
 
-function formatTime(time: Date) {
-  return format(time, "HH:mm", { locale: tr });
+function formatTime(time: Date | string) {
+  const timeObj = typeof time === 'string' ? new Date(time) : time;
+  if (isNaN(timeObj.getTime())) {
+    return 'Saat belirtilmemiş';
+  }
+  return format(timeObj, "HH:mm", { locale: tr });
 }
 
 function getFirstImage(images: any) {
@@ -133,15 +141,27 @@ function WorkshopCard({ workshop }: { workshop: Workshop }) {
           <div className="flex items-center">
             <Calendar className="w-4 h-4 mr-2 text-muted-foreground" />
             <span>
-              {formatDate(new Date(workshop.startDate))}
-              {new Date(workshop.startDate).toDateString() !== new Date(workshop.endDate).toDateString() && 
-               ` - ${formatDate(new Date(workshop.endDate))}`}
+              {(() => {
+                const startDate = new Date(workshop.startDate);
+                const endDate = new Date(workshop.endDate);
+                
+                if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                  return 'Tarih bilgisi mevcut değil';
+                }
+                
+                const startDateStr = formatDate(startDate);
+                const endDateStr = formatDate(endDate);
+                
+                return startDate.toDateString() === endDate.toDateString() 
+                  ? startDateStr 
+                  : `${startDateStr} - ${endDateStr}`;
+              })()}
             </span>
           </div>
           <div className="flex items-center">
             <Clock className="w-4 h-4 mr-2 text-muted-foreground" />
             <span>
-              {formatTime(new Date(workshop.startTime))} - {formatTime(new Date(workshop.endTime))}
+              {formatTime(workshop.startTime)} - {formatTime(workshop.endTime)}
             </span>
           </div>
           <div className="flex items-center">

@@ -13,8 +13,8 @@ interface Workshop {
   id: number;
   title: string;
   category: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string | Date;
+  endDate: string | Date;
   location: string;
   description: string;
 }
@@ -230,10 +230,21 @@ export default function WorkshopRegistrationPage({ params }: { params: Promise<{
                 <strong>Konum:</strong> {workshop.location}
               </p>
               <p className="text-sm text-muted-foreground">
-                <strong>Tarih:</strong> {new Date(workshop.startDate).toLocaleDateString('tr-TR')}
-                {workshop.startDate !== workshop.endDate && 
-                  ` - ${new Date(workshop.endDate).toLocaleDateString('tr-TR')}`
-                }
+                <strong>Tarih:</strong> {(() => {
+                  const startDate = new Date(workshop.startDate);
+                  const endDate = new Date(workshop.endDate);
+                  
+                  // Check if dates are valid
+                  if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                    return 'Tarih bilgisi mevcut değil';
+                  }
+                  
+                  const startDateStr = startDate.toLocaleDateString('tr-TR');
+                  const endDateStr = endDate.toLocaleDateString('tr-TR');
+                  
+                  // Compare dates by their string representation
+                  return startDateStr === endDateStr ? startDateStr : `${startDateStr} - ${endDateStr}`;
+                })()}
               </p>
             </div>
 
