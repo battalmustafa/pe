@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getWorkshops, getWorkshopsByCategory } from '@/lib/database';
+import { getWorkshops, getWorkshopsByCategory, getWorkshopById } from '@/lib/database';
 import { prisma } from '@/lib/prisma';
 
 // GET endpoint to retrieve all workshops or a specific workshop
@@ -11,8 +11,7 @@ export async function GET(request: Request) {
     
     if (id) {
       // Get specific workshop by ID
-      const workshops = await getWorkshops();
-      const workshop = workshops.find(w => w.id === Number(id));
+      const workshop = await getWorkshopById(Number(id));
       
       if (!workshop) {
         return NextResponse.json({ error: 'Workshop not found' }, { status: 404 });

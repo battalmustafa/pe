@@ -4,6 +4,7 @@ import { tr } from 'date-fns/locale';
 import { Button } from '@/components/ui/button';
 import { Clock, Calendar, MapPin, Users, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { getWorkshopById } from '@/lib/database';
 
 // Format the date for display
 function formatDate(date: Date) {
@@ -15,9 +16,12 @@ function formatTime(time: Date) {
   return format(time, "HH:mm", { locale: tr });
 }
 
-// Parse the images from the JSON string
-function parseImages(images: string) {
+// Parse the images from the JSON string or array
+function parseImages(images: any) {
   try {
+    if (Array.isArray(images)) {
+      return images;
+    }
     return JSON.parse(images) as string[];
   } catch (e) {
     return ['/placeholder-workshop.jpg'];
@@ -53,19 +57,13 @@ function getStatusInfo(status: string) {
 }
 
 async function getWorkshop(id: number) {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/workshops?id=${id}`, {
-    cache: 'no-store',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  
-  if (!res.ok) {
-    throw new Error('Failed to fetch workshop');
+  try {
+    const workshop = await getWorkshopById(id);
+    return workshop;
+  } catch (error) {
+    console.error('Error fetching workshop:', error);
+    return null;
   }
-  
-  return res.json();
 }
 
 export default async function WorkshopDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -103,7 +101,7 @@ export default async function WorkshopDetailPage({ params }: { params: Promise<{
             <div className="aspect-video bg-muted rounded-lg overflow-hidden">
               <img 
                 src={images[0]} 
-                alt={workshop.title}
+                alt={String(workshop.title)}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -125,8 +123,8 @@ export default async function WorkshopDetailPage({ params }: { params: Promise<{
           {/* Workshop Info */}
           <div className="md:w-1/2">
             <div className="flex items-center mb-4">
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
-                {getCategoryName(workshop.category)}
+                              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                {getCategoryName(String(workshop.category))}
               </span>
               {'status' in workshop && (
                 <span className={`ml-2 inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getStatusInfo(workshop.status as string).className}`}>
@@ -134,7 +132,7 @@ export default async function WorkshopDetailPage({ params }: { params: Promise<{
                 </span>
               )}
             </div>
-            <h1 className="text-3xl font-bold mb-4">{workshop.title}</h1>
+                          <h1 className="text-3xl font-bold mb-4">{String(workshop.title)}</h1>
             
             <div className="space-y-4 mb-6">
               <div className="flex items-start">
@@ -163,7 +161,7 @@ export default async function WorkshopDetailPage({ params }: { params: Promise<{
                 <MapPin className="w-5 h-5 mr-3 text-muted-foreground mt-0.5" />
                 <div>
                   <p className="font-medium">Konum</p>
-                  <p className="text-muted-foreground">{workshop.location}</p>
+                  <p className="text-muted-foreground">{String(workshop.location)}</p>
                 </div>
               </div>
               
@@ -172,7 +170,7 @@ export default async function WorkshopDetailPage({ params }: { params: Promise<{
                   <Users className="w-5 h-5 mr-3 text-muted-foreground mt-0.5" />
                   <div>
                     <p className="font-medium">Kapasite</p>
-                    <p className="text-muted-foreground">{workshop.capacity} kişi</p>
+                    <p className="text-muted-foreground">{String(workshop.capacity)} kişi</p>
                   </div>
                 </div>
               )}
@@ -186,22 +184,22 @@ export default async function WorkshopDetailPage({ params }: { params: Promise<{
       {/* Workshop Detail Content */}
       <div className="prose prose-slate max-w-none">
         <div className="mb-8">
-          <h2 className="text-2xl font-bold mb-4">{workshop.detailPageHeader}</h2>
-          <div dangerouslySetInnerHTML={{ __html: workshop.description }} className="mb-6" />
+          <h2 className="text-2xl font-bold mb-4">{String(workshop.detailPageHeader || '')}</h2>
+          <div dangerouslySetInnerHTML={{ __html: String(workshop.description || '') }} className="mb-6" />
         </div>
         
         <div className="mb-8">
           <h3 className="text-xl font-bold mb-4">Atölye Detayları</h3>
-          <div dangerouslySetInnerHTML={{ __html: workshop.detailPageSection1 }} className="mb-6" />
-          <div dangerouslySetInnerHTML={{ __html: workshop.detailPageSection2 }} className="mb-6" />
-          <div dangerouslySetInnerHTML={{ __html: workshop.detailPageSection3 }} className="mb-6" />
+          <div dangerouslySetInnerHTML={{ __html: String(workshop.detailPageSection1 || '') }} className="mb-6" />
+          <div dangerouslySetInnerHTML={{ __html: String(workshop.detailPageSection2 || '') }} className="mb-6" />
+          <div dangerouslySetInnerHTML={{ __html: String(workshop.detailPageSection3 || '') }} className="mb-6" />
 
 
         </div>
       
         
         <div className="bg-muted p-6 rounded-lg">
-          <div dangerouslySetInnerHTML={{ __html: workshop.detailPageFooter }} />
+          <div dangerouslySetInnerHTML={{ __html: String(workshop.detailPageFooter || '') }} />
         </div>
       </div>
     </div>
