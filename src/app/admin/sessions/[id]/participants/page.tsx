@@ -111,9 +111,9 @@ const participantsData = {
   ]
 };
 
-export default function ParticipantsPage({ params }: { params: { id: string } }) {
+export default async function ParticipantsPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const router = useRouter();
-  const { id } = params;
   const session = sessionData[id as keyof typeof sessionData];
   const participants = participantsData[id as keyof typeof participantsData] || [];
   
