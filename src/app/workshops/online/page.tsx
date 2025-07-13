@@ -39,7 +39,7 @@ function getFirstImage(images: string) {
 }
 
 async function getWorkshops() {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
   const res = await fetch(`${baseUrl}/api/workshops?category=online`, {
     cache: 'no-store',
     headers: {

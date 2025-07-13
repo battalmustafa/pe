@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Clock, Calendar, MapPin, Users } from 'lucide-react';
 import Link from 'next/link';
+import { getWorkshopsByCategory } from '@/lib/database';
 
 interface Workshop {
   id: number;
@@ -39,7 +40,7 @@ function getFirstImage(images: string) {
 }
 
 async function getWorkshops() {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
   const res = await fetch(`${baseUrl}/api/workshops?category=konaklamali`, {
     cache: 'no-store',
     headers: {
