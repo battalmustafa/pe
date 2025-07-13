@@ -202,7 +202,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/sahrasahilbattal/Desktop/pe website/my-app/src/generated/prisma",
+      "value": "/Users/mustafabattal/Downloads/pe website/my-app/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -211,12 +211,20 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "darwin",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "darwin"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "darwin-arm64"
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/sahrasahilbattal/Desktop/pe website/my-app/prisma/schema.prisma",
+    "sourceFilePath": "/Users/mustafabattal/Downloads/pe website/my-app/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -239,8 +247,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Event {\n  id          Int      @id @default(autoincrement())\n  title       String\n  date        DateTime\n  startTime   DateTime\n  endTime     DateTime\n  location    String\n  type        String // book-signing, workshop, panel, interview, mindfulness\n  description String?\n  capacity    Int?\n  regRequired Boolean  @default(false)\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel Book {\n  id            Int      @id @default(autoincrement())\n  title         String\n  coverImage    String?\n  description   String?\n  publishDate   DateTime\n  amazonLink    String?\n  goodreadsLink String?\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n}\n\nmodel Article {\n  id          Int      @id @default(autoincrement())\n  title       String\n  content     String\n  excerpt     String?\n  coverImage  String?\n  publishDate DateTime\n  slug        String   @unique\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel Session {\n  id          Int      @id @default(autoincrement())\n  title       String\n  description String?\n  date        DateTime\n  duration    Int // duration in minutes\n  price       Float\n  capacity    Int?\n  bookings    Int      @default(0)\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel Workshop {\n  id                 Int              @id @default(autoincrement())\n  title              String\n  images             String // Stored as JSON array string\n  category           WorkshopCategory\n  startDate          DateTime\n  endDate            DateTime\n  startTime          DateTime\n  endTime            DateTime\n  location           String\n  description        String\n  detailPageHeader   String\n  detailPageSection1 String\n  detailPageSection2 String\n  detailPageSection3 String\n  detailPageFooter   String\n  capacity           Int?\n  status             WorkshopStatus   @default(YAKLASANDA)\n  createdAt          DateTime         @default(now())\n  updatedAt          DateTime         @updatedAt\n}\n\nenum WorkshopCategory {\n  ONLINE\n  KONAKLAMALI\n  KURUMSAL\n}\n\nenum WorkshopStatus {\n  DEVAM_EDIYOR\n  YAKLASANDA\n  TAMAMLANDI\n}\n",
-  "inlineSchemaHash": "c2d61eca1d81154db6b0068978ec5f06d130f4e6015b81fd206719bcd2389441",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../src/generated/prisma\"\n  binaryTargets = [\"native\", \"darwin\", \"darwin-arm64\"]\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Event {\n  id          Int      @id @default(autoincrement())\n  title       String\n  date        DateTime\n  startTime   DateTime\n  endTime     DateTime\n  location    String\n  type        String // book-signing, workshop, panel, interview, mindfulness\n  description String?\n  capacity    Int?\n  regRequired Boolean  @default(false)\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel Book {\n  id            Int      @id @default(autoincrement())\n  title         String\n  coverImage    String?\n  description   String?\n  publishDate   DateTime\n  amazonLink    String?\n  goodreadsLink String?\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n}\n\nmodel Article {\n  id          Int      @id @default(autoincrement())\n  title       String\n  content     String\n  excerpt     String?\n  coverImage  String?\n  publishDate DateTime\n  slug        String   @unique\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel Session {\n  id          Int      @id @default(autoincrement())\n  title       String\n  description String?\n  date        DateTime\n  duration    Int // duration in minutes\n  price       Float\n  capacity    Int?\n  bookings    Int      @default(0)\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel Workshop {\n  id                 Int              @id @default(autoincrement())\n  title              String\n  images             String // Stored as JSON array string\n  category           WorkshopCategory\n  startDate          DateTime\n  endDate            DateTime\n  startTime          DateTime\n  endTime            DateTime\n  location           String\n  description        String\n  detailPageHeader   String\n  detailPageSection1 String\n  detailPageSection2 String\n  detailPageSection3 String\n  detailPageFooter   String\n  capacity           Int?\n  status             WorkshopStatus   @default(YAKLASANDA)\n  createdAt          DateTime         @default(now())\n  updatedAt          DateTime         @updatedAt\n}\n\nenum WorkshopCategory {\n  ONLINE\n  KONAKLAMALI\n  KURUMSAL\n}\n\nenum WorkshopStatus {\n  DEVAM_EDIYOR\n  YAKLASANDA\n  TAMAMLANDI\n}\n",
+  "inlineSchemaHash": "fba49481b5504e803eeda0cadf6c1a82802ef0c4179e4b605b8f54e59fb23a50",
   "copyEngine": true
 }
 config.dirname = '/'

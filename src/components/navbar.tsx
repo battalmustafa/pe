@@ -16,10 +16,10 @@ const NavItems = [
   { name: "Biyografi", href: "/biography" },
   { name: "Kitaplar", href: "/books" },
   { name: "Etkinlikler", href: "/etkinlikler" },
-  { name: "Atölyeler", href: "/workshops" },
+  { name: "Eİİ Atölyeler", href: "/workshops" },
   { name: "Kurgu Şantiyesi", href: "/kurgu-santiyesi" },
   { name: "Medya", href: "/media" },
-  { name: "Süreli Yayınlar", href: "/sureli-yayinlar" },
+  
   { name: "İletişim", href: "/iletisim" },
 ];
 
@@ -66,8 +66,8 @@ export function Navbar() {
               </Link>
             ))}
             <Button asChild variant="default" className="bg-primary hover:bg-primary/90">
-              <Link href="/mindfulness">
-                Kurgu Şantiyesine Katılın
+              <Link href="/hizli-basvuru">
+                Hızlı Başvuru
               </Link>
             </Button>
             <ThemeSwitcher />
@@ -95,8 +95,8 @@ export function Navbar() {
                     </Link>
                   ))}
                   <Button className="mt-4 bg-primary hover:bg-primary/90">
-                    <Link href="/mindfulness">
-                      Kurgu Şantiyesine Katılın
+                    <Link href="/hizli-basvuru">
+                      Hızlı Başvuru
                     </Link>
                   </Button>
                 </nav>

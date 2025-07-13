@@ -3,13 +3,12 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { 
   BookOpenText, 
-  BookOpen, 
-  Music, 
-  MessageSquareText,
-  ChevronRight
+  ChevronRight,
+  Instagram,
+  MessageSquareText
 } from "lucide-react";
-import { InstagramFeed } from "@/components/instagram-feed";
 import { ImageCarousel } from "@/components/image-carousel";
+import { books } from '@/data/books';
 
 export default function Home() {
   return (
@@ -25,17 +24,13 @@ export default function Home() {
                 <span className="title-gradient">Pınar Eğilmez</span>
               </h1>
               <p className="text-xl md:text-2xl mb-8 text-foreground/80">
-                İnsan zihninin karmaşıklığını 
-                <span className="text-primary font-semibold"> psikolojik gerilim romanları</span> ve 
-                <span className="text-accent font-semibold"> kurgu şantiyesi</span> ile keşfedin.
+               
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button size="lg" className="bg-primary hover:bg-primary/90 hover-effect">
                   <Link href="/books">Kitapları Keşfet</Link>
                 </Button>
-                <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10 hover-effect">
-                  <Link href="/mindfulness">Kurgu Şantiyesine Katıl</Link>
-                </Button>
+              
               </div>
             </div>
             <div className="relative h-[300px] md:h-[400px] lg:h-[500px] w-full md:w-[300px] lg:w-[400px] overflow-hidden rounded-lg shadow-xl">
@@ -58,74 +53,29 @@ export default function Home() {
         <div className="container">
           <h2 className="text-3xl font-bold mb-8 text-center">Kitaplar</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Book 1 */}
-            <div className="bg-background rounded-lg overflow-hidden shadow-md transition-shadow hover:shadow-lg hover:shadow-primary/20 group">
-              <div className="relative h-80 w-full bg-muted">
-                <Image
-                  src="/images/book1.jpg"
-                  alt="Aklın Gölgeleri"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
+            {books.map((book) => (
+              <div key={book.id} className="bg-background rounded-lg overflow-hidden shadow-md transition-shadow hover:shadow-lg hover:shadow-primary/20 group">
+                <div className="relative h-80 w-full bg-muted">
+                  <Image
+                    src={book.coverImage}
+                    alt={book.title}
+                    fill
+                    className="object-contain group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">{book.title}</h3>
+                  <p className="text-foreground/70 mb-4 line-clamp-3">
+                    {book.synopsis.split('\n')[0]}
+                  </p>
+                  <Button variant="ghost" className="text-primary hover:text-primary/90 hover:bg-primary/10 p-0 flex items-center gap-1" asChild>
+                    <Link href="/books">
+                      Devamını Oku <ChevronRight size={16} />
+                    </Link>
+                  </Button>
+                </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">Aklın Gölgeleri</h3>
-                <p className="text-foreground/70 mb-4 line-clamp-3">
-                  İnsan bilincinin en karanlık köşelerini keşfeden psikolojik bir gerilim.
-                </p>
-                <Button variant="ghost" className="text-primary hover:text-primary/90 hover:bg-primary/10 p-0 flex items-center gap-1" asChild>
-                  <Link href="/books">
-                    Devamını Oku <ChevronRight size={16} />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-
-            {/* Book 2 */}
-            <div className="bg-background rounded-lg overflow-hidden shadow-md transition-shadow hover:shadow-lg hover:shadow-primary/20 group">
-              <div className="relative h-80 w-full bg-muted">
-                <Image
-                  src="/images/book2.jpg"
-                  alt="Karanlıktaki Fısıltılar"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">Karanlıktaki Fısıltılar</h3>
-                <p className="text-foreground/70 mb-4 line-clamp-3">
-                  Gerilim ve psikolojik manipülasyonun etkileyici bir hikayesi.
-                </p>
-                <Button variant="ghost" className="text-primary hover:text-primary/90 hover:bg-primary/10 p-0 flex items-center gap-1" asChild>
-                  <Link href="/books">
-                    Devamını Oku <ChevronRight size={16} />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-
-            {/* Book 3 */}
-            <div className="bg-background rounded-lg overflow-hidden shadow-md transition-shadow hover:shadow-lg hover:shadow-primary/20 group">
-              <div className="relative h-80 w-full bg-muted">
-                <Image
-                  src="/images/book3.jpg"
-                  alt="Sessiz Gözlemci"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">Sessiz Gözlemci</h3>
-                <p className="text-foreground/70 mb-4 line-clamp-3">
-                  Algı, gerçeklik ve aradaki boşluklar hakkında zihin bükücü bir gerilim.
-                </p>
-                <Button variant="ghost" className="text-primary hover:text-primary/90 hover:bg-primary/10 p-0 flex items-center gap-1" asChild>
-                  <Link href="/books">
-                    Devamını Oku <ChevronRight size={16} />
-                  </Link>
-                </Button>
-              </div>
-            </div>
+            ))}
           </div>
           <div className="text-center mt-10">
             <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary/10" asChild>
@@ -155,33 +105,33 @@ export default function Home() {
                 Pınar'ın romanlarındaki heyecan verici dünyaları ve karmaşık karakterleri keşfedin.
               </p>
               <Button variant="link" className="text-primary mt-auto" asChild>
-                <Link href="/books">Koleksiyona Göz At</Link>
+                <Link href="/books">Kitapları Keşfet</Link>
               </Button>
             </div>
 
             <div className="flex flex-col items-center text-center p-6 bg-card rounded-lg card-hover">
               <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mb-4">
-                <BookOpen className="w-8 h-8 text-accent" />
+                <MessageSquareText className="w-8 h-8 text-accent" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Makaleler</h3>
+              <h3 className="text-xl font-semibold mb-2">Röportajlar</h3>
               <p className="text-foreground/70 mb-4">
-                Pınar'ın yazarlık, psikoloji ve mindfulness hakkındaki düşüncelerini okuyun.
+              Pınar'ın yazarlık, psikoloji ve kültür hakkındaki düşüncelerini okuyun.
               </p>
               <Button variant="link" className="text-accent mt-auto" asChild>
-                <Link href="/articles">Makaleleri Oku</Link>
+                <Link href="/articles">Röportajları Oku</Link>
               </Button>
             </div>
 
             <div className="flex flex-col items-center text-center p-6 bg-card rounded-lg card-hover">
-              <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center mb-4">
-                <Music className="w-8 h-8 text-secondary" />
+              <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mb-4">
+                <Instagram className="w-8 h-8 text-accent" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Spotify</h3>
+              <h3 className="text-xl font-semibold mb-2">Instagram</h3>
               <p className="text-foreground/70 mb-4">
-                Pınar'ın podcast'lerini ve önerdiği çalma listelerini dinleyin.
+                Pınar'ın instagram'ındaki güncel görüntülerini ve güncel gönderilerini görüntüleyin.
               </p>
-              <Button variant="link" className="text-secondary mt-auto" asChild>
-                <Link href="/spotify">Şimdi Dinle</Link>
+              <Button variant="link" className="text-accent mt-auto" asChild>
+                <Link href="https://www.instagram.com/pinaregilmezz" target="_blank">Şimdi Görüntüle</Link>
               </Button>
             </div>
 
@@ -201,9 +151,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Instagram Feed */}
-      <InstagramFeed />
-
+   
       {/* Newsletter Section */}
       <section className="py-16 bg-gradient-to-r from-primary/10 via-accent/5 to-secondary/10">
         <div className="container">

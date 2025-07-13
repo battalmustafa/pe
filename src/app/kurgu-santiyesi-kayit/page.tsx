@@ -1,0 +1,130 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ArrowLeft } from "lucide-react";
+
+export default function KurguSantiyesiKayit() {
+  const router = useRouter();
+  const [formData, setFormData] = useState({
+    ad: "",
+    soyad: "",
+    telefon: "",
+    email: "",
+    ornekHikaye: ""
+  });
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Here you would typically send the form data to your backend
+    console.log("Form data:", formData);
+    // For now, we'll just redirect back to the main page
+    router.push("/kurgu-santiyesi");
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  return (
+    <div className="container max-w-2xl py-12">
+      <Button
+        variant="ghost"
+        className="mb-8"
+        onClick={() => router.back()}
+      >
+        <ArrowLeft className="h-4 w-4 mr-2" />
+        Geri Dön
+      </Button>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Kurgu Şantiyesi Kayıt Formu</CardTitle>
+          <CardDescription>
+            Lütfen aşağıdaki formu doldurarak kayıt işleminizi tamamlayın.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="ad">Ad</Label>
+                <Input
+                  id="ad"
+                  name="ad"
+                  value={formData.ad}
+                  onChange={handleChange}
+                  required
+                  placeholder="Adınız"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="soyad">Soyad</Label>
+                <Input
+                  id="soyad"
+                  name="soyad"
+                  value={formData.soyad}
+                  onChange={handleChange}
+                  required
+                  placeholder="Soyadınız"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="telefon">Telefon</Label>
+              <Input
+                id="telefon"
+                name="telefon"
+                type="tel"
+                value={formData.telefon}
+                onChange={handleChange}
+                required
+                placeholder="05XX XXX XX XX"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="email">E-posta</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                placeholder="ornek@email.com"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="ornekHikaye">Örnek Kısa Hikaye</Label>
+              <Textarea
+                id="ornekHikaye"
+                name="ornekHikaye"
+                value={formData.ornekHikaye}
+                onChange={handleChange}
+                required
+                placeholder="Lütfen kısa bir hikaye örneği yazın..."
+                className="min-h-[200px]"
+              />
+            </div>
+
+            <Button type="submit" className="w-full">
+              Kayıt Ol
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
+} 

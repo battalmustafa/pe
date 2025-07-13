@@ -87,6 +87,7 @@ export default function WorkshopForm({ initialData, isEditing = false }: Worksho
   const [images, setImages] = useState<string[]>([]);
   const [imageURL, setImageURL] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   // Initialize form with default values or existing workshop data
   const form = useForm<FormValues>({
@@ -133,10 +134,37 @@ export default function WorkshopForm({ initialData, isEditing = false }: Worksho
   }, [initialData]);
 
   // Handle image URL input
-  const handleAddImage = () => {
-    if (imageURL && !images.includes(imageURL)) {
-      setImages([...images, imageURL]);
-      setImageURL("");
+  const handleAddImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      setUploading(true);
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+        const response = await fetch('/api/workshops/upload', {
+          method: 'POST',
+          body: formData,
+        });
+        if (!response.ok) {
+          throw new Error('Failed to upload image');
+        }
+        const data = await response.json();
+        setImages([...images, data.url]);
+        toast({
+          title: "Başarılı",
+          description: "Resim başarıyla yüklendi.",
+        });
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        toast({
+          title: "Hata",
+          description: "Resim yüklenirken bir sorun oluştu.",
+          variant: "destructive",
+        });
+      } finally {
+        setUploading(false);
+      }
     }
   };
 
@@ -423,14 +451,13 @@ export default function WorkshopForm({ initialData, isEditing = false }: Worksho
           <FormLabel>Atölye Görselleri</FormLabel>
           <div className="flex space-x-2">
             <Input
-              value={imageURL}
-              onChange={(e) => setImageURL(e.target.value)}
-              placeholder="Görsel URL'si ekleyin"
+              type="file"
+              accept="image/*"
+              onChange={handleAddImage}
               className="flex-1"
+              placeholder="Görsel yükleyin"
+              disabled={uploading}
             />
-            <Button type="button" onClick={handleAddImage}>
-              Ekle
-            </Button>
           </div>
           
           {images.length > 0 && (

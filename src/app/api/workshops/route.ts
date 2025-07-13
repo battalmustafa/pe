@@ -155,4 +155,21 @@ export async function DELETE(request: Request) {
     console.error('Error deleting workshop:', error);
     return NextResponse.json({ error: 'Failed to delete workshop' }, { status: 500 });
   }
+}
+
+export async function GETAllWorkshops() {
+  try {
+    const workshops = await prisma.workshop.findMany({
+      orderBy: {
+        startDate: 'asc',
+      },
+    });
+
+    return NextResponse.json(workshops);
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Failed to fetch workshops' },
+      { status: 500 }
+    );
+  }
 } 

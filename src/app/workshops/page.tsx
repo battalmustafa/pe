@@ -45,80 +45,61 @@ function getFirstImage(images: string) {
 }
 
 export default async function WorkshopsPage() {
-  // Fetch all workshops
-  const workshops = await prisma.workshop.findMany({
-    orderBy: {
-      startDate: 'asc',
+  const categories = [
+    {
+      id: 'online',
+      title: '',
+      description: 'Çevrimiçi olarak katılabileceğiniz atölyeler',
+      image: '/images/workshop/workshop-online.jpg'
     },
-  });
-
-  // Group workshops by category
-  const onlineWorkshops = workshops.filter(workshop => workshop.category === 'ONLINE');
-  const konaklamaliWorkshops = workshops.filter(workshop => workshop.category === 'KONAKLAMALI');
-  const kurumsalWorkshops = workshops.filter(workshop => workshop.category === 'KURUMSAL');
+    {
+      id: 'konaklamali',
+      title: '',
+      description: 'Konaklamalı olarak katılabileceğiniz atölyeler',
+      image: '/images/workshop/workshop-konaklama.jpg'
+    },
+    {
+      id: 'kurumsal',
+      title: 'Kurumsal Atölyeler',
+      description: 'Kurumsal olarak katılabileceğiniz atölyeler',
+      image: '/images/workshop/workshop-kurumsal.jpg'
+    }
+  ];
 
   return (
     <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-12">
-        <h1 className="text-3xl font-bold mb-4">Atölyeler</h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Farklı kategorilerdeki atölyelerimize katılarak yeni beceriler edinebilir, yaratıcılığınızı geliştirebilirsiniz.
-        </p>
+        <div className="mb-6 flex justify-center">
+          <img 
+            src="/images/eii-logo.png" 
+            alt="Edebiyat ile İyileşme Logo" 
+            className="h-48 w-auto"
+          />
+        </div>
+        <h1 className="text-4xl md:text-5xl font-bold mb-6">
+          <span className="title-gradient">Edebiyat ile İyileşme Atölyeleri</span>
+        </h1>
       </div>
 
-      {/* Workshop Categories Tabs */}
-      <Tabs defaultValue="online" className="w-full mb-8">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="online">Çevrimiçi Atölyeler</TabsTrigger>
-          <TabsTrigger value="konaklamali">Konaklamalı Atölyeler</TabsTrigger>
-          <TabsTrigger value="kurumsal">Kurumsal Atölyeler</TabsTrigger>
-        </TabsList>
-
-        {/* Online Workshops */}
-        <TabsContent value="online">
-          {onlineWorkshops.length === 0 ? (
-            <div className="text-center py-16">
-              <p className="text-muted-foreground">Şu anda çevrimiçi atölye bulunmamaktadır.</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+        {categories.map((category) => (
+          <Link href={`/workshops/${category.id}`} key={category.id}>
+            <div className="h-full hover:shadow-lg transition-shadow cursor-pointer bg-white rounded-lg shadow-md border border-gray-300 overflow-hidden">
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={category.image}
+                  alt={category.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              <div className="p-4">
+                <Button className="w-full">Atölyeleri Görüntüle</Button>
+              </div>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {onlineWorkshops.map((workshop) => (
-                <WorkshopCard key={workshop.id} workshop={workshop as Workshop} />
-              ))}
-            </div>
-          )}
-        </TabsContent>
-
-        {/* Konaklamalı Workshops */}
-        <TabsContent value="konaklamali">
-          {konaklamaliWorkshops.length === 0 ? (
-            <div className="text-center py-16">
-              <p className="text-muted-foreground">Şu anda konaklamalı atölye bulunmamaktadır.</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {konaklamaliWorkshops.map((workshop) => (
-                <WorkshopCard key={workshop.id} workshop={workshop as Workshop} />
-              ))}
-            </div>
-          )}
-        </TabsContent>
-
-        {/* Kurumsal Workshops */}
-        <TabsContent value="kurumsal">
-          {kurumsalWorkshops.length === 0 ? (
-            <div className="text-center py-16">
-              <p className="text-muted-foreground">Şu anda kurumsal atölye bulunmamaktadır.</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {kurumsalWorkshops.map((workshop) => (
-                <WorkshopCard key={workshop.id} workshop={workshop as Workshop} />
-              ))}
-            </div>
-          )}
-        </TabsContent>
-      </Tabs>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
@@ -159,7 +140,7 @@ function WorkshopCard({ workshop }: { workshop: Workshop }) {
         <img
           src={getFirstImage(workshop.images)}
           alt={workshop.title}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain"
         />
       </div>
       <CardHeader>

@@ -7,24 +7,38 @@ import { Button } from "@/components/ui/button";
 const reportages = [
   {
     id: 1,
-    title: "Edebiyat Dünyasında Psikolojik Gerilim",
-    description: "Modern edebiyatta psikolojik gerilim türünün yükselişi ve okuyucu üzerindeki etkileri üzerine bir röportaj.",
+    title: "En Yükseğe Çıkan Zihinler",
+    description: "Gazete Oksijen'de yayınlanan röportaj: En yükseğe çıkan zihinlerin genelde duygusal anlamda en dibi gören insanlardan olduğu üzerine.",
     image: "/images/media/reportage1.jpg",
-    link: "/medya/roportajlar/psikolojik-gerilim"
+    link: "https://gazeteoksijen.com/kitap/yazar-pinar-egilmez-en-yuksege-cikan-zihinler-genelde-duygusal-anlamda-en-dibi-goren-insanlardan-oluyor-233625"
   },
   {
     id: 2,
-    title: "Yazarlık Yolculuğum",
-    description: "Bir yazar olarak ilk adımlarım, ilham kaynaklarım ve yazım sürecim hakkında samimi bir sohbet.",
+    title: "Gece Geçen Gemi'yi Yazmaya Direnç Gösterdim",
+    description: "Ajandakolik'te yayınlanan röportaj: Yeni kitap 'Gece Geçen Gemi' üzerine samimi bir sohbet.",
     image: "/images/media/reportage2.jpg",
-    link: "/medya/roportajlar/yazarlik-yolculugum"
+    link: "https://www.ajandakolik.com/pinar-egilmez-gece-gecen-gemiyi-yazmaya-direnc-gosterdim-bir-cesit-sanatsal-olum-korkusu/"
   },
   {
     id: 3,
-    title: "Kitapların Ötesinde",
-    description: "Edebiyatın günlük hayatımıza nasıl dokunduğu ve toplumsal etkisi üzerine derinlemesine bir analiz.",
+    title: "Sesini Duyurma Şansı Bulamamış Acılar",
+    description: "BirGün'de yayınlanan makale: Edebiyatın toplumsal etkisi ve sesini duyuramayanların hikayeleri.",
     image: "/images/media/reportage3.jpg",
-    link: "/medya/roportajlar/kitaplarin-otesinde"
+    link: "https://www.birgun.net/makale/sesini-duyurma-sansi-bulamamis-acilar-570130"
+  },
+  {
+    id: 4,
+    title: "Edebiyat Dünyasına Girişim Pek Sıradan Değildi",
+    description: "Gazete Duvar'da yayınlanan röportaj: Edebiyat yolculuğunun başlangıcı ve ilk adımlar.",
+    image: "/images/media/reportage4.jpg",
+    link: "https://www.gazeteduvar.com.tr/pinar-egilmez-edebiyat-dunyasina-girisim-pek-siradan-degildi-haber-1731386"
+  },
+  {
+    id: 5,
+    title: "Gece Geçen Gemi Okuyucudan Tam Not Aldı",
+    description: "TGRT Haber'de yayınlanan haber: Yeni kitap hakkında okuyucu yorumları ve değerlendirmeler.",
+    image: "/images/media/reportage5.jpg",
+    link: "https://www.tgrthaber.com/mavikadin/pinar-egilmezin-gece-gecen-gemi-eseri-okuyucudan-tam-not-aldi/"
   }
 ];
 
@@ -32,49 +46,65 @@ const reportages = [
 const radioShows = [
   {
     id: 1,
-    title: "Psikoloji ve Edebiyat",
-    description: "Psikoloji biliminin edebiyat dünyasına etkisi ve karakterlerin derinliği üzerine bir radyo programı.",
+    title: "Psiko Kurgu Yazarı Pınar Eğilmez ile Söyleşi",
+    description: "Serhat Sarısözen'le Gündem Dışı programında yazar Pınar Eğilmez'in psiko kurgu türü ve yazarlık süreci üzerine samimi sohbeti.",
     image: "/images/media/radio1.jpg",
-    link: "/medya/radyo/psikoloji-ve-edebiyat"
+    link: "https://anlatilaninotesi.com.tr/20250112/1092593845.html",
+    audioSrc: "https://nfw.ria.ru/flv/file.aspx?ID=71621349&type=mp3"
   },
-  {
-    id: 2,
-    title: "Yazım Teknikleri",
-    description: "Etkili hikaye anlatımı, karakter geliştirme ve diyalog yazımı üzerine pratik ipuçları içeren bir sohbet.",
-    image: "/images/media/radio2.jpg",
-    link: "/medya/radyo/yazim-teknikleri"
-  },
-  {
-    id: 3,
-    title: "Kitap Önerileri",
-    description: "Farklı türlerde kitap önerileri ve okuma alışkanlıklarımızı geliştirme üzerine keyifli bir program.",
-    image: "/images/media/radio3.jpg",
-    link: "/medya/radyo/kitap-onerileri"
-  }
+  
 ];
 
 // Mock data for Onedio stories
 const onedioStories = [
   {
     id: 1,
-    title: "Psikolojik Gerilim Tutkunları İçin 10 Kitap",
-    description: "Zihninizi zorlayacak, sizi düşündürecek ve şaşırtacak en iyi psikolojik gerilim kitapları.",
+    title: "Neden Sana İyi Gelmeyen Bir Yerde Durmayı Seçiyorsun?",
+    description: "İlişkilerde kendimizi neden iyi hissetmediğimiz durumlarda tuttuğumuz üzerine düşündüren bir yazı.",
     image: "/images/media/onedio1.jpg",
-    link: "/medya/onedio/psikolojik-gerilim-kitaplari"
+    link: "https://onedio.com/haber/pinar-egilmez-yazio-neden-sana-iyi-gelmeyen-bir-yerde-durmayi-seciyorsun-967567"
   },
   {
     id: 2,
-    title: "Bir Yazarın Günlük Rutini",
-    description: "Bir yazarın yaratıcılığını korumak için uyguladığı günlük alışkanlıklar ve ilham bulma yöntemleri.",
+    title: "Tam Da Şimdi Bizim Zamanımız",
+    description: "Şimdinin değeri ve anın önemini vurgulayan, zaman algımızı sorgulatan bir yazı.",
     image: "/images/media/onedio2.jpg",
-    link: "/medya/onedio/yazar-rutini"
+    link: "https://onedio.com/haber/pinar-egilmez-yazio-tam-da-simdi-bizim-zamanimiz-962832"
   },
   {
     id: 3,
-    title: "Okurlarla Buluşma Anıları",
-    description: "İmza günleri ve edebiyat festivallerinden unutulmaz anlar ve okurlarla yaşanan özel deneyimler.",
+    title: "Tavsiye Etmemenizi Tavsiye Ederim",
+    description: "Başkalarının hayatlarına müdahale etme ve tavsiye verme konusunda farklı bir bakış açısı.",
     image: "/images/media/onedio3.jpg",
-    link: "/medya/onedio/okur-bulusmalari"
+    link: "https://onedio.com/haber/pinar-egilmez-yazio-tavsiye-etmemenizi-tavsiye-ederim-956577"
+  },
+  {
+    id: 4,
+    title: "Seçin Bakalım: Böbrek mi Karaciğer mi, Duygu mu Düşünce mi?",
+    description: "Duygusal ve düşünsel kararlarımızın hayatımıza etkisi üzerine düşündüren bir yazı.",
+    image: "/images/media/onedio4.jpg",
+    link: "https://onedio.com/haber/pinar-egilmez-yazio-secin-bakalim-bobrek-mi-karaciger-mi-duygu-mu-dusunce-mi-952592"
+  },
+  {
+    id: 5,
+    title: "Kimyanın Kılıcı",
+    description: "İnsan ilişkilerindeki kimyasal bağlar ve etkileşimler üzerine derinlemesine bir analiz.",
+    image: "/images/media/onedio5.jpg",
+    link: "https://onedio.com/haber/pinar-egilmez-yazio-kimyanin-kilici-949727"
+  },
+  {
+    id: 6,
+    title: "Ortak Çaresizliğimiz veya Bir Donanım Yazılım Sorunu",
+    description: "Modern hayatın getirdiği ortak sorunlar ve çözüm arayışları üzerine düşündüren bir yazı.",
+    image: "/images/media/onedio6.jpg",
+    link: "https://onedio.com/haber/pinar-egilmez-yazio-ortak-caresizligimiz-veya-bir-donanim-yazilim-sorunu-948268"
+  },
+  {
+    id: 7,
+    title: "Zihinsel Obezite",
+    description: "Günümüzde bilgi bombardımanı altında zihnimizin durumu ve bunun etkileri üzerine bir analiz.",
+    image: "/images/media/onedio7.jpg",
+    link: "https://onedio.com/haber/pinar-egilmez-yazio-zihinsel-obezite-947154"
   }
 ];
 
@@ -91,7 +121,7 @@ export default function MediaPage() {
               <span className="title-gradient">Medya</span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-foreground/80">
-              Röportajlar, radyo programları ve özel içeriklerle Pınar Eğilmez'in dünyasını keşfedin.
+             
             </p>
           </div>
         </div>
@@ -109,7 +139,7 @@ export default function MediaPage() {
                     src={item.image}
                     alt={item.title}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="object-contain group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="p-6">
@@ -141,7 +171,7 @@ export default function MediaPage() {
                     src={item.image}
                     alt={item.title}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="object-contain group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="p-6">
@@ -149,11 +179,20 @@ export default function MediaPage() {
                   <p className="text-foreground/70 mb-4 line-clamp-3">
                     {item.description}
                   </p>
-                  <Button variant="ghost" className="text-accent hover:text-accent/90 hover:bg-accent/10 p-0 flex items-center gap-1" asChild>
-                    <Link href={item.link}>
-                      Dinle <MoveRight size={16} />
-                    </Link>
-                  </Button>
+                  {item.audioSrc ? (
+                    <div className="mb-4">
+                      <audio controls className="w-full">
+                        <source src={item.audioSrc} type="audio/mpeg" />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </div>
+                  ) : (
+                    <Button variant="ghost" className="text-accent hover:text-accent/90 hover:bg-accent/10 p-0 flex items-center gap-1" asChild>
+                      <Link href={item.link}>
+                        Dinle <MoveRight size={16} />
+                      </Link>
+                    </Button>
+                  )}
                 </div>
               </div>
             ))}
@@ -164,7 +203,7 @@ export default function MediaPage() {
       {/* Onedio Stories Section */}
       <section className="py-12 bg-card/50">
         <div className="container">
-          <h2 className="text-3xl font-bold mb-8">Onedio Hikayeleri</h2>
+          <h2 className="text-3xl font-bold mb-8">Onedio.com </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {onedioStories.map((item) => (
               <div key={item.id} className="bg-background rounded-lg overflow-hidden shadow-md transition-shadow hover:shadow-lg hover:shadow-secondary/20 group">
@@ -181,7 +220,7 @@ export default function MediaPage() {
                   <p className="text-foreground/70 mb-4 line-clamp-3">
                     {item.description}
                   </p>
-                  <Button variant="ghost" className="text-secondary hover:text-secondary/90 hover:bg-secondary/10 p-0 flex items-center gap-1" asChild>
+                  <Button variant="ghost" className="text-primary hover:text-primary/90 hover:bg-primary/10 p-0 flex items-center gap-1" asChild>
                     <Link href={item.link}>
                       Hikayeyi Oku <MoveRight size={16} />
                     </Link>

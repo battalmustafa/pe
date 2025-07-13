@@ -25,93 +25,99 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { CalendarDays, Clock, User, ArrowRight, CreditCard, Check, X, Users } from "lucide-react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { useRouter } from "next/navigation";
 
 // Define TypeScript interface for the mindfulness session
-interface MindfulnessSession {
+interface KurguSantiyesiSession {
   id: string;
   title: string;
+  type: string;
   description: string;
   image: string;
+  price: number;
   duration: string;
   sessions: string;
-  price: number;
   maxParticipants: number;
   availableSpots: number;
   startDate: string;
   level: string;
   features: string[];
+  programType: "Normal" | "Yoğun";
+  paymentSchedule: {
+    firstPayment: number;
+    secondPayment: number;
+  };
+  contentPdf: string;
 }
 
-// Mindfulness session data
-const sessions: MindfulnessSession[] = [
+// Kurgu Santiyesi session data
+const sessions: KurguSantiyesiSession[] = [
   {
-    id: "hikaye-yaratim",
-    title: "Hikaye Yaratım Atölyesi",
-    description: "Karakterleri, sahneleri ve gerilim unsurlarıyla etkileyici hikayeler oluşturmayı öğrenin.",
-    image: "/images/mindfulness1.jpg",
-    duration: "6 hafta",
-    sessions: "12 oturum",
-    price: 1899,
-    maxParticipants: 15,
-    availableSpots: 8,
-    startDate: "15 Haziran 2023",
-    level: "Başlangıç-Orta",
-    features: [
-      "Haftada iki canlı oturum",
-      "Kişisel geribildirim",
-      "Kayıtlı dersler",
-      "Haftalık soru-cevap",
-      "Özel topluluk erişimi"
-    ]
-  },
-  {
-    id: "gerilim-kurgusu",
-    title: "Gerilim Kurgusu Şantiyesi",
-    description: "Psikolojik gerilim ve gizem unsurlarını kullanarak okuyucuları hikayenize kenetlemenin yollarını keşfedin.",
-    image: "/images/mindfulness2.jpg",
-    duration: "8 hafta",
-    sessions: "16 oturum",
-    price: 2499,
-    maxParticipants: 12,
-    availableSpots: 5,
-    startDate: "10 Temmuz 2023",
-    level: "İleri Seviye",
-    features: [
-      "Gerilim teknikleri incelemesi",
-      "Karakter psikolojisi derinlemesine",
-      "Kişisel rehberlik",
-      "Özel materyallere erişim",
-      "Tamamlama sertifikası"
-    ]
-  },
-  {
-    id: "yeni-yazarlar",
-    title: "Yeni Yazarlar Platformu",
-    description: "İlk romanınızı veya öykü koleksiyonunuzu yazmaya başlamak için gereken tüm bilgi ve teknikleri öğrenin.",
-    image: "/images/mindfulness3.jpg",
+    id: "normal-program",
+    title: "Kurgu Şantiyesi - Normal Program",
+    type: "Normal",
+    description: "Yazar Pınar Eğilmez ile birebir geliştirici editörlük programı. Haftalık metin alışverişi, aylık görüntülü görüşmeler ve sürekli destek ile yazma yolculuğunuzda size eşlik ediyoruz.",
+    image: "/images/kurgu-santiyesi-normal.jpg",
     duration: "4 hafta",
-    sessions: "8 oturum",
-    price: 1299,
-    maxParticipants: 20,
-    availableSpots: 12,
-    startDate: "5 Ağustos 2023",
-    level: "Başlangıç",
+    sessions: "4 hafta boyunca haftada bir kez email yoluyla bölüm alışverişi",
+    price: 24000,
+    maxParticipants: 1,
+    availableSpots: 1,
+    startDate: "Her ay başında",
+    level: "Tüm Seviyeler",
+    programType: "Normal",
+    paymentSchedule: {
+      firstPayment: 8000,
+      secondPayment: 16000
+    },
+    contentPdf: "/pdf/kurgu-santiyesi-normal-program.pdf",
     features: [
-      "Temel yazarlık teknikleri",
-      "Aşamalı ilerleme",
-      "Grup desteği",
-      "Günlük yazma alıştırmaları",
-      "Okuma materyalleri dahil"
+      "Haftada bir kez email yoluyla bölüm alışverişi",
+      "İlk ay 3, diğer aylarda ayda 2 kez 1.5 saatlik görüntülü görüşme",
+      "Whatsapp üzerinden sürekli destek",
+      "Kişiye özel geliştirici editörlük",
+      "Yazmanın psikolojisi üzerine destek",
+      "Yayınevi referans desteği"
+    ]
+  },
+  {
+    id: "yogun-program",
+    title: "Kurgu Şantiyesi - Yoğun Program",
+    type: "Yoğun",
+    description: "Daha yoğun bir program ile yazar Pınar Eğilmez ile birebir geliştirici editörlük. Haftalık metin alışverişi, ayda 4 görüntülü görüşme ve sürekli destek ile hızlı ilerleme sağlayın.",
+    image: "/images/kurgu-santiyesi-yogun.jpg",
+    duration: "4 hafta",
+    sessions: "4 hafta boyunca haftada bir kez email yoluyla bölüm alışverişi",
+    price: 36000,
+    maxParticipants: 1,
+    availableSpots: 1,
+    startDate: "Her ay başında",
+    level: "Tüm Seviyeler",
+    programType: "Yoğun",
+    paymentSchedule: {
+      firstPayment: 12000,
+      secondPayment: 24000
+    },
+    contentPdf: "/pdf/kurgu-santiyesi-yogun-program.pdf",
+    features: [
+      "Haftada bir kez email yoluyla bölüm alışverişi",
+      "Ayda 4 kez 1.5 saatlik görüntülü görüşme",
+      "Whatsapp üzerinden sürekli destek",
+      "Kişiye özel geliştirici editörlük",
+      "Yazmanın psikolojisi üzerine destek",
+      "Yayınevi referans desteği",
+      "Daha yoğun görüşme programı"
     ]
   }
 ];
 
 export default function KurguSantiyesi() {
-  const [selectedSession, setSelectedSession] = useState<MindfulnessSession | null>(null);
+  const router = useRouter();
+  const [selectedSession, setSelectedSession] = useState<KurguSantiyesiSession | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [paymentComplete, setPaymentComplete] = useState(false);
   
-  const openModal = (session: MindfulnessSession) => {
+  const openModal = (session: KurguSantiyesiSession) => {
     setSelectedSession(session);
     setIsModalOpen(true);
   };
@@ -120,8 +126,11 @@ export default function KurguSantiyesi() {
     setIsModalOpen(false);
   };
 
-  const handleRegister = (session: MindfulnessSession) => {
-    setSelectedSession(session);
+  const handleRegister = (session: KurguSantiyesiSession) => {
+    // Store the selected session in localStorage or state management
+    localStorage.setItem('selectedProgram', JSON.stringify(session));
+    // Navigate to registration page
+    router.push('/kurgu-santiyesi-kayit');
   };
   
   const handlePaymentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -142,52 +151,17 @@ export default function KurguSantiyesi() {
           <div className="max-w-3xl">
             <h1 className="text-4xl font-bold mb-4">Kurgu Şantiyesi</h1>
             <p className="text-xl text-foreground/80">
-              Pınar Eğilmez'in profesyonel rehberliğinde, yaratıcı yazarlık becerilerinizi geliştirin ve
-              kendi hikayelerinizi oluşturma sanatını keşfedin.
+              Yazar Pınar Eğilmez ile birebir geliştirici editörlük programı. Kendi yazma yolculuğunuzda size özel rehberlik.
             </p>
           </div>
         </div>
       </section>
       
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-        <div className="space-y-6 flex flex-col justify-center">
-          <h2 className="text-3xl font-bold text-primary">Benzersiz Bir Kurgu Yaklaşımı</h2>
-          <p className="text-lg text-foreground/80 leading-relaxed">
-            Psikoloji alanındaki geçmişinden ve yazar olarak çalışmalarından ilham alan Pınar, 
-            anlatım, psikolojik entegrasyon ve yaratıcı ifadeye odaklanan özgün bir
-            kurgu yaklaşımı sunuyor.
-          </p>
-          <p className="text-lg text-foreground/80 leading-relaxed">
-            Bu atölyeler sadece yazma tekniklerini öğrenmekle kalmayıp, kendi zihninizin 
-            derinliklerini keşfetmenize, psikolojik dayanıklılık geliştirmenize ve yaratıcı 
-            potansiyelinizi ortaya çıkarmanıza yardımcı olacak.
-          </p>
-          <div className="pt-4">
-            <Badge variant="outline" className="bg-primary/5 border-primary/20 text-primary text-sm px-4 py-1">
-              Küçük Gruplar
-            </Badge>
-            <Badge variant="outline" className="bg-primary/5 border-primary/20 text-primary text-sm px-4 py-1 ml-2">
-              Kişiselleştirilmiş Yaklaşım
-            </Badge>
-            <Badge variant="outline" className="bg-primary/5 border-primary/20 text-primary text-sm px-4 py-1 ml-2">
-              Canlı Oturumlar
-            </Badge>
-          </div>
-        </div>
-        <div className="relative h-[300px] md:h-[400px] overflow-hidden rounded-lg shadow-lg">
-          <Image
-            src="/images/mindfulness-hero.jpg"
-            alt="Kurgu Şantiyesi"
-            fill
-            className="object-cover"
-          />
-        </div>
-      </section>
-      
-      {/* Available Sessions */}
+    
+      {/* Available Programs */}
       <section className="container py-12">
-        <h2 className="text-3xl font-bold mb-10 text-center">Mevcut Atölyeler</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <h2 className="text-3xl font-bold mb-10 text-center">Program Seçenekleri</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {sessions.map((session) => (
             <div key={session.id} className="bg-card rounded-lg overflow-hidden border border-border shadow-sm hover:shadow-md transition-shadow">
               <div className="relative h-56 w-full bg-muted">
@@ -210,14 +184,28 @@ export default function KurguSantiyesi() {
                   </div>
                   <div className="flex items-center">
                     <Users className="h-4 w-4 mr-1 text-primary" />
-                    <span className="text-sm">{session.availableSpots} kişi kaldı</span>
+                    <span className="text-sm">{session.programType} Program</span>
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
-                  <p className="font-bold text-lg">{session.price} TL</p>
-                  <Button size="sm" onClick={() => openModal(session)}>
-                    Detaylar
-                  </Button>
+                  <div>
+                    <p className="text-sm text-foreground/60">Aylık Ücret</p>
+                    <p className="font-bold text-lg">{session.price.toLocaleString('tr-TR')} TL</p>
+                    <p className="text-xs text-foreground/60">
+                      {session.paymentSchedule.firstPayment.toLocaleString('tr-TR')} TL (1. Taksit) + {session.paymentSchedule.secondPayment.toLocaleString('tr-TR')} TL (2. Taksit)
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button size="sm" variant="outline" asChild>
+                      <a href={session.contentPdf} target="_blank" rel="noopener noreferrer">
+                        <ArrowRight className="h-4 w-4 mr-1" />
+                        Tanıtım Bülteni
+                      </a>
+                    </Button>
+                    <Button size="sm" onClick={() => openModal(session)}>
+                      Detaylar
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -225,90 +213,7 @@ export default function KurguSantiyesi() {
         </div>
       </section>
       
-      {/* Testimonials */}
-      <section className="py-12 bg-card/50 rounded-lg">
-        <div className="container">
-          <h2 className="text-3xl font-bold mb-8 text-center">What Participants Say</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-background p-6 rounded-lg shadow-sm">
-              <p className="italic text-foreground/80 mb-4">
-                "These sessions have completely transformed how I understand my own mind. Pınar's approach 
-                combines modern psychological insights with mindfulness in a way I've never experienced before."
-              </p>
-              <p className="font-semibold">Ayşe K.</p>
-              <p className="text-sm text-foreground/70">Deep Mind Exploration participant</p>
-            </div>
-            
-            <div className="bg-background p-6 rounded-lg shadow-sm">
-              <p className="italic text-foreground/80 mb-4">
-                "The Shadows and Light program helped me confront aspects of myself I'd been avoiding for years. 
-                It wasn't always comfortable, but it was deeply healing and transformative."
-              </p>
-              <p className="font-semibold">Mehmet R.</p>
-              <p className="text-sm text-foreground/70">Shadows and Light participant</p>
-            </div>
-            
-            <div className="bg-background p-6 rounded-lg shadow-sm">
-              <p className="italic text-foreground/80 mb-4">
-                "As someone new to mindfulness, I appreciated how the Beginner's Mind program eased me into the 
-                practice. Pınar is an exceptional guide with profound insights into human psychology."
-              </p>
-              <p className="font-semibold">Zeynep T.</p>
-              <p className="text-sm text-foreground/70">Beginner's Mind participant</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* FAQ Section */}
-      <section className="container py-12 md:py-20">
-        <h2 className="text-3xl font-bold mb-10 text-center">Sık Sorulan Sorular</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="item-1">
-              <AccordionTrigger>Bu atölyeler kime uygun?</AccordionTrigger>
-              <AccordionContent>
-                Yazma becerilerini geliştirmek isteyen, yaratıcı yazarlıkla ilgilenen ve kurgusal hikayeler oluşturmak isteyen herkese uygundur. Başlangıç seviyesinden ileri seviyeye kadar farklı programlarımız bulunmaktadır.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-2">
-              <AccordionTrigger>Hangi konular ele alınacak?</AccordionTrigger>
-              <AccordionContent>
-                Karakter oluşturma, hikaye yapısı, diyalog yazımı, sahne kurgusu, gerilim oluşturma teknikleri ve kurgunuzu geliştirecek psikolojik unsurlar gibi çeşitli konular ele alınacaktır.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-3">
-              <AccordionTrigger>Atölyelere nasıl katılabilirim?</AccordionTrigger>
-              <AccordionContent>
-                İlgilendiğiniz atölyenin detaylar sayfasından kayıt olabilirsiniz. Kontenjanlar sınırlıdır, bu nedenle erken kayıt yaptırmanız önerilir.
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-          
-          <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="item-4">
-              <AccordionTrigger>Ekipmana ihtiyacım var mı?</AccordionTrigger>
-              <AccordionContent>
-                Basit bir not defteri ve kalem yeterlidir, ancak dizüstü bilgisayar kullanmayı tercih edebilirsiniz. Atölye başlamadan önce detaylı bir ekipman listesi paylaşılacaktır.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-5">
-              <AccordionTrigger>Kaçırdığım dersleri telafi edebilir miyim?</AccordionTrigger>
-              <AccordionContent>
-                Evet, tüm atölye oturumları kaydedilir ve katılımcılarla paylaşılır. İsterseniz kaçırdığınız dersi daha sonra izleyebilirsiniz.
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-6">
-              <AccordionTrigger>İade politikanız nedir?</AccordionTrigger>
-              <AccordionContent>
-                Atölye başlangıç tarihinden 7 gün öncesine kadar tam iade yapılmaktadır. Daha sonraki iptal istekleri için kısmi iade veya bir sonraki atölyeye transfer seçenekleri sunulmaktadır.
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </div>
-      </section>
-      
-      {/* Session Modal */}
+      {/* Program Details Modal */}
       {isModalOpen && selectedSession && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-background rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
@@ -336,11 +241,11 @@ export default function KurguSantiyesi() {
                   <p>{selectedSession.duration}</p>
                 </div>
                 <div>
-                  <h4 className="text-sm font-semibold text-foreground/60">Oturum Sayısı</h4>
-                  <p>{selectedSession.sessions}</p>
+                  <h4 className="text-sm font-semibold text-foreground/60">Program Tipi</h4>
+                  <p>{selectedSession.programType}</p>
                 </div>
                 <div>
-                  <h4 className="text-sm font-semibold text-foreground/60">Başlangıç Tarihi</h4>
+                  <h4 className="text-sm font-semibold text-foreground/60">Başlangıç</h4>
                   <p>{selectedSession.startDate}</p>
                 </div>
                 <div>
@@ -349,7 +254,7 @@ export default function KurguSantiyesi() {
                 </div>
               </div>
               
-              <h4 className="font-semibold mb-2">Dahil Olanlar:</h4>
+              <h4 className="font-semibold mb-2">Program İçeriği:</h4>
               <ul className="mb-6 space-y-1">
                 {selectedSession.features.map((feature, index) => (
                   <li key={index} className="flex items-start">
@@ -361,14 +266,20 @@ export default function KurguSantiyesi() {
               
               <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-border">
                 <div>
-                  <p className="text-sm text-foreground/60">Fiyat</p>
-                  <p className="text-2xl font-bold">{selectedSession.price} TL</p>
-                </div>
-                <div>
-                  <p className="text-sm text-center sm:text-right text-foreground/60 mb-2">
-                    {selectedSession.availableSpots} / {selectedSession.maxParticipants} kişi kaldı
+                  <p className="text-sm text-foreground/60">Aylık Ücret</p>
+                  <p className="text-2xl font-bold">{selectedSession.price.toLocaleString('tr-TR')} TL</p>
+                  <p className="text-sm text-foreground/60">
+                    {selectedSession.paymentSchedule.firstPayment.toLocaleString('tr-TR')} TL (1. Taksit) + {selectedSession.paymentSchedule.secondPayment.toLocaleString('tr-TR')} TL (2. Taksit)
                   </p>
-                  <Button onClick={() => { closeModal(); handleRegister(selectedSession); }} className="w-full sm:w-auto">
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="outline" asChild>
+                    <a href={selectedSession.contentPdf} target="_blank" rel="noopener noreferrer">
+                      <ArrowRight className="h-4 w-4 mr-1" />
+                      Detaylı Bilgi
+                    </a>
+                  </Button>
+                  <Button onClick={() => { closeModal(); handleRegister(selectedSession); }}>
                     Hemen Kaydol
                   </Button>
                 </div>
@@ -387,7 +298,7 @@ export default function KurguSantiyesi() {
             </div>
             <h3 className="text-2xl font-bold mb-2">Kaydınız Tamamlandı!</h3>
             <p className="text-foreground/70 mb-6">
-              Atölye hakkında detaylı bilgiler e-posta adresinize gönderilmiştir.
+              Program hakkında detaylı bilgiler e-posta adresinize gönderilmiştir.
             </p>
             <Button onClick={() => setPaymentComplete(false)} className="w-full">
               Tamam

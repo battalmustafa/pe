@@ -166,7 +166,7 @@ export default async function WorkshopDetailPage({ params }: { params: Promise<{
               )}
             </div>
             
-            <Button size="lg" className="w-full">Atölyeye Katıl</Button>
+            <Button size="lg" className="w-full">Kayıt Ol</Button>
           </div>
         </div>
       </div>
@@ -181,17 +181,12 @@ export default async function WorkshopDetailPage({ params }: { params: Promise<{
         <div className="mb-8">
           <h3 className="text-xl font-bold mb-4">Atölye Detayları</h3>
           <div dangerouslySetInnerHTML={{ __html: workshop.detailPageSection1 }} className="mb-6" />
-        </div>
-        
-        <div className="mb-8">
-          <h3 className="text-xl font-bold mb-4">Neler Öğreneceksiniz?</h3>
           <div dangerouslySetInnerHTML={{ __html: workshop.detailPageSection2 }} className="mb-6" />
-        </div>
-        
-        <div className="mb-8">
-          <h3 className="text-xl font-bold mb-4">Kimler Katılabilir?</h3>
           <div dangerouslySetInnerHTML={{ __html: workshop.detailPageSection3 }} className="mb-6" />
+
+
         </div>
+      
         
         <div className="bg-muted p-6 rounded-lg">
           <div dangerouslySetInnerHTML={{ __html: workshop.detailPageFooter }} />
