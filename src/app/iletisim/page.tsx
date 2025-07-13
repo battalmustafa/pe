@@ -30,19 +30,51 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // In a real application, this would send the form data to a server
-    // Simulate API call with timeout
-    setTimeout(() => {
-      setIsSubmitting(false);
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    
+    const emailData = {
+      name: formData.get('name') as string,
+      email: formData.get('email') as string,
+      subject: formData.get('subject') as string,
+      message: formData.get('message') as string,
+      newsletter: formData.get('newsletter') === 'on'
+    };
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'iletisim',
+          formData: emailData
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send email');
+      }
+
       toast({
-        title: "Message Sent",
-        description: "Thank you for your message. We'll get back to you soon.",
+        title: "Mesaj Gönderildi",
+        description: "Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapılacaktır.",
       });
       
       // Reset form
-      const form = e.target as HTMLFormElement;
       form.reset();
-    }, 1500);
+      
+    } catch (error) {
+      console.error('Error sending email:', error);
+      toast({
+        title: "Hata",
+        description: "Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   
   return (
@@ -182,6 +214,7 @@ export default function Contact() {
                     </label>
                     <Input
                       id="name"
+                      name="name"
                       placeholder=""
                       required
                     />
@@ -192,6 +225,7 @@ export default function Contact() {
                     </label>
                     <Input
                       id="email"
+                      name="email"
                       type="email"
                       placeholder=""
                       required
@@ -205,6 +239,7 @@ export default function Contact() {
                   </label>
                   <Input
                     id="subject"
+                    name="subject"
                     placeholder=""
                     required
                   />
@@ -216,6 +251,7 @@ export default function Contact() {
                   </label>
                   <Textarea
                     id="message"
+                    name="message"
                     placeholder=""
                     rows={6}
                     required
@@ -226,6 +262,7 @@ export default function Contact() {
                   <div className="flex items-center space-x-2">
                     <input
                       id="newsletter"
+                      name="newsletter"
                       type="checkbox"
                       className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary-500"
                     />

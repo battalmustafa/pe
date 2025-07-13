@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 interface Workshop {
   id: number;
@@ -23,6 +24,7 @@ interface KurguSantiyesiProgram {
 
 export default function HizliBasvuru() {
   const router = useRouter();
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     ad: "",
     soyad: "",
@@ -34,6 +36,7 @@ export default function HizliBasvuru() {
   const [workshops, setWorkshops] = useState<Workshop[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const kurguSantiyesiProgramlari: KurguSantiyesiProgram[] = [
     {
@@ -52,7 +55,7 @@ export default function HizliBasvuru() {
     const fetchWorkshops = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/api/workshops/list');
+        const response = await fetch('/api/workshops');
         if (!response.ok) {
           throw new Error('Failed to fetch workshops');
         }
@@ -71,10 +74,53 @@ export default function HizliBasvuru() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Here you would typically send the form data to your backend
-    console.log("Form data:", formData);
-    // For now, we'll just redirect back to the main page
-    router.push("/");
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'hizli-basvuru',
+          formData: formData
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send email');
+      }
+
+      toast({
+        title: "Başvuru Gönderildi",
+        description: "Başvurunuz başarıyla gönderildi. En kısa sürede size dönüş yapılacaktır.",
+      });
+
+      // Reset form
+      setFormData({
+        ad: "",
+        soyad: "",
+        email: "",
+        telefon: "",
+        secilenProgramlar: []
+      });
+
+      // Redirect after a short delay
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
+
+    } catch (error) {
+      console.error('Error sending email:', error);
+      toast({
+        title: "Hata",
+        description: "Başvuru gönderilirken bir hata oluştu. Lütfen tekrar deneyin.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -221,8 +267,8 @@ export default function HizliBasvuru() {
               </div>
             </div>
 
-            <Button type="submit" className="w-full">
-              Başvuru Yap
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? "Gönderiliyor..." : "Başvuru Yap"}
             </Button>
           </form>
         </CardContent>

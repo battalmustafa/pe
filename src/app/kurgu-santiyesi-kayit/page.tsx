@@ -8,9 +8,11 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function KurguSantiyesiKayit() {
   const router = useRouter();
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     ad: "",
     soyad: "",
@@ -18,13 +20,57 @@ export default function KurguSantiyesiKayit() {
     email: "",
     ornekHikaye: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Here you would typically send the form data to your backend
-    console.log("Form data:", formData);
-    // For now, we'll just redirect back to the main page
-    router.push("/kurgu-santiyesi");
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'kurgu-santiyesi-kayit',
+          formData: formData
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send email');
+      }
+
+      toast({
+        title: "Kayıt Gönderildi",
+        description: "Kayıt formunuz başarıyla gönderildi. En kısa sürede size dönüş yapılacaktır.",
+      });
+
+      // Reset form
+      setFormData({
+        ad: "",
+        soyad: "",
+        telefon: "",
+        email: "",
+        ornekHikaye: ""
+      });
+
+      // Redirect after a short delay
+      setTimeout(() => {
+        router.push("/kurgu-santiyesi");
+      }, 2000);
+
+    } catch (error) {
+      console.error('Error sending email:', error);
+      toast({
+        title: "Hata",
+        description: "Kayıt gönderilirken bir hata oluştu. Lütfen tekrar deneyin.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -119,8 +165,8 @@ export default function KurguSantiyesiKayit() {
               />
             </div>
 
-            <Button type="submit" className="w-full">
-              Kayıt Ol
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? "Gönderiliyor..." : "Kayıt Ol"}
             </Button>
           </form>
         </CardContent>
