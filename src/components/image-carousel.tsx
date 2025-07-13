@@ -40,9 +40,9 @@ export function ImageCarousel({ title, description }: ImageCarouselProps) {
         
         // Fallback to default images if API fails
         setImages([
-          { id: '1', url: '/images/carousel/default1.jpg', alt: 'Carousel image 1' },
-          { id: '2', url: '/images/carousel/default2.jpg', alt: 'Carousel image 2' },
-          { id: '3', url: '/images/carousel/default3.jpg', alt: 'Carousel image 3' },
+          { id: '1', url: '/images/carousel/27-29 Haziran Edebiyat ile İyileşme Kazdağları Atölyesi.png', alt: 'Edebiyat ile İyileşme Kazdağları Atölyesi' },
+          { id: '2', url: '/images/carousel/ajandakoliklk.png', alt: 'Ajanda Kolik' },
+          { id: '3', url: '/images/carousel/asd.png', alt: 'Workshop Image' },
         ]);
       } finally {
         setLoading(false);
@@ -135,7 +135,7 @@ export function ImageCarousel({ title, description }: ImageCarouselProps) {
                   alt={image.alt}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 85vw, 75vw"
-                  className="object-cover rounded-lg"
+                  className="object-contain rounded-lg"
                   priority={index === 0}
                 />
               </div>

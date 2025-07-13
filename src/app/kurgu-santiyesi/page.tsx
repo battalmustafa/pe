@@ -57,7 +57,7 @@ const sessions: KurguSantiyesiSession[] = [
     title: "Kurgu Şantiyesi - Normal Program",
     type: "Normal",
     description: "Yazar Pınar Eğilmez ile birebir geliştirici editörlük programı. Haftalık metin alışverişi, aylık görüntülü görüşmeler ve sürekli destek ile yazma yolculuğunuzda size eşlik ediyoruz.",
-    image: "/images/kurgu-santiyesi-normal.jpg",
+    image: "/images/kurgu images/noraml.png",
     duration: "4 hafta",
     sessions: "4 hafta boyunca haftada bir kez email yoluyla bölüm alışverişi",
     price: 24000,
@@ -85,7 +85,7 @@ const sessions: KurguSantiyesiSession[] = [
     title: "Kurgu Şantiyesi - Yoğun Program",
     type: "Yoğun",
     description: "Daha yoğun bir program ile yazar Pınar Eğilmez ile birebir geliştirici editörlük. Haftalık metin alışverişi, ayda 4 görüntülü görüşme ve sürekli destek ile hızlı ilerleme sağlayın.",
-    image: "/images/kurgu-santiyesi-yogun.jpg",
+    image: "/images/kurgu images/yogun.png",
     duration: "4 hafta",
     sessions: "4 hafta boyunca haftada bir kez email yoluyla bölüm alışverişi",
     price: 36000,
@@ -276,7 +276,7 @@ export default function KurguSantiyesi() {
                   <Button variant="outline" asChild>
                     <a href={selectedSession.contentPdf} target="_blank" rel="noopener noreferrer">
                       <ArrowRight className="h-4 w-4 mr-1" />
-                      Detaylı Bilgi
+                      Tanıtım Bülteni
                     </a>
                   </Button>
                   <Button onClick={() => { closeModal(); handleRegister(selectedSession); }}>
