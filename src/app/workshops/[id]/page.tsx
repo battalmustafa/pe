@@ -102,7 +102,7 @@ export default async function WorkshopDetailPage({ params }: { params: Promise<{
               <img 
                 src={images[0]} 
                 alt={String(workshop.title)}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             </div>
             {images.length > 1 && (
@@ -112,7 +112,7 @@ export default async function WorkshopDetailPage({ params }: { params: Promise<{
                     <img 
                       src={image}
                       alt={`${workshop.title} - ${index + 2}`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                     />
                   </div>
                 ))}
