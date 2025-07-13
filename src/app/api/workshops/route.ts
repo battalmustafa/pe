@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { getWorkshops, getWorkshopsByCategory } from '@/lib/database';
 import { prisma } from '@/lib/prisma';
 
 // GET endpoint to retrieve all workshops or a specific workshop
@@ -9,115 +10,23 @@ export async function GET(request: Request) {
     const category = searchParams.get('category');
     
     if (id) {
-      try {
-        const workshop = await prisma.workshop.findUnique({
-          where: { id: Number(id) },
-        });
-        
-        if (!workshop) {
-          return NextResponse.json({ error: 'Workshop not found' }, { status: 404 });
-        }
-        
-        return NextResponse.json(workshop);
-      } catch (dbError) {
-        console.error('Database error, returning mock workshop:', dbError);
-        // Return mock workshop when database is unavailable
-        return NextResponse.json({
-          id: Number(id),
-          title: 'Örnek Atölye',
-          images: JSON.stringify(['/placeholder-workshop.jpg']),
-          category: 'ONLINE',
-          startDate: new Date(),
-          endDate: new Date(),
-          startTime: new Date(),
-          endTime: new Date(),
-          location: 'Online',
-          description: 'Bu bir örnek atölyedir.',
-          detailPageHeader: 'Örnek Başlık',
-          detailPageSection1: 'Örnek içerik 1',
-          detailPageSection2: 'Örnek içerik 2',
-          detailPageSection3: 'Örnek içerik 3',
-          detailPageFooter: 'Örnek altbilgi',
-          capacity: 20,
-          status: 'YAKLASANDA',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        });
+      // Get specific workshop by ID
+      const workshops = await getWorkshops();
+      const workshop = workshops.find(w => w.id === Number(id));
+      
+      if (!workshop) {
+        return NextResponse.json({ error: 'Workshop not found' }, { status: 404 });
       }
+      
+      return NextResponse.json(workshop);
     }
     
-    try {
-      // Filter by category if provided
-      const whereClause = category 
-        ? { category: category.toUpperCase() as any } 
-        : {};
-      
-      const workshops = await prisma.workshop.findMany({
-        where: whereClause,
-        orderBy: {
-          startDate: 'asc',
-        },
-      });
+    // Get workshops by category or all workshops
+    const workshops = category 
+      ? await getWorkshopsByCategory(category)
+      : await getWorkshops();
 
-      return NextResponse.json(workshops);
-    } catch (dbError) {
-      console.error('Database error, returning mock workshops:', dbError);
-      // Return mock workshops when database is unavailable
-      const mockWorkshops = [
-        {
-          id: 1,
-          title: 'Online Yazma Atölyesi',
-          images: JSON.stringify(['/placeholder-workshop.jpg']),
-          category: 'ONLINE',
-          startDate: new Date('2024-02-15'),
-          endDate: new Date('2024-02-15'),
-          startTime: new Date('2024-02-15T10:00:00'),
-          endTime: new Date('2024-02-15T12:00:00'),
-          location: 'Online',
-          description: 'Edebiyat ile iyileşme online yazma atölyesi',
-          detailPageHeader: 'Online Yazma Atölyesi',
-          detailPageSection1: 'Bu atölyede yazma tekniklerini öğreneceksiniz.',
-          detailPageSection2: 'Edebiyat ile iyileşme yolculuğuna çıkacaksınız.',
-          detailPageSection3: 'Grup çalışmaları ve bireysel egzersizler yapacaksınız.',
-          detailPageFooter: 'Katılım için kayıt yaptırabilirsiniz.',
-          capacity: 20,
-          status: 'YAKLASANDA',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        },
-        {
-          id: 2,
-          title: 'Konaklamalı Retreat',
-          images: JSON.stringify(['/placeholder-workshop.jpg']),
-          category: 'KONAKLAMALI',
-          startDate: new Date('2024-03-01'),
-          endDate: new Date('2024-03-03'),
-          startTime: new Date('2024-03-01T09:00:00'),
-          endTime: new Date('2024-03-03T17:00:00'),
-          location: 'Kapadokya',
-          description: 'Konaklamalı edebiyat ile iyileşme programı',
-          detailPageHeader: 'Konaklamalı Retreat',
-          detailPageSection1: '3 günlük yoğun program.',
-          detailPageSection2: 'Doğa ile iç içe yazma deneyimi.',
-          detailPageSection3: 'Bireysel ve grup çalışmaları.',
-          detailPageFooter: 'Konaklama dahil program.',
-          capacity: 15,
-          status: 'YAKLASANDA',
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-      ];
-      
-      // Filter mock data by category if requested
-      if (category) {
-        const filteredMockWorkshops = mockWorkshops.filter(w => 
-          w.category === category.toUpperCase()
-        );
-        return NextResponse.json(filteredMockWorkshops);
-      }
-      
-      return NextResponse.json(mockWorkshops);
-    }
+    return NextResponse.json(workshops);
   } catch (error) {
     console.error('Error fetching workshops:', error);
     return NextResponse.json({ error: 'Failed to fetch workshops' }, { status: 500 });
