@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
 
     const { data, error } = await resend.emails.send({
       from: 'Pınar Eğilmez Website <onboarding@resend.dev>',
-      to: ['battalmustafa88@gmail.com'],
+      to: ['pinaregilmezmanagement@gmail.com'],
       subject: subject,
       html: html,
     });
