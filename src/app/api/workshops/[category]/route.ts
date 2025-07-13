@@ -3,14 +3,15 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET(
   request: Request,
-  { params }: { params: { category: string } }
+  { params }: { params: Promise<{ category: string }> }
 ) {
+  const { category } = await params;
   try {
-    const category = params.category.toUpperCase();
+    const categoryUpper = category.toUpperCase();
     
     const workshops = await prisma.workshop.findMany({
       where: {
-        category: category
+        category: categoryUpper as any
       },
       orderBy: {
         endDate: 'asc',
