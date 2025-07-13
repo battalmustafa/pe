@@ -1,103 +1,232 @@
+import Link from "next/link";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { 
+  BookOpenText, 
+  BookOpen, 
+  Music, 
+  MessageSquareText,
+  ChevronRight
+} from "lucide-react";
+import { InstagramFeed } from "@/components/instagram-feed";
+import { ImageCarousel } from "@/components/image-carousel";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="flex flex-col">
+      {/* Hero Section */}
+      <section className="relative py-20 md:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-primary/10 to-secondary/5 z-0"></div>
+        <div className="absolute inset-0 bg-[url('/images/texture.png')] opacity-10 z-0"></div>
+        <div className="container relative z-10">
+          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
+            <div className="flex-1 text-center lg:text-left">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-shadow">
+                <span className="title-gradient">Pınar Eğilmez</span>
+              </h1>
+              <p className="text-xl md:text-2xl mb-8 text-foreground/80">
+                İnsan zihninin karmaşıklığını 
+                <span className="text-primary font-semibold"> psikolojik gerilim romanları</span> ve 
+                <span className="text-accent font-semibold"> kurgu şantiyesi</span> ile keşfedin.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <Button size="lg" className="bg-primary hover:bg-primary/90 hover-effect">
+                  <Link href="/books">Kitapları Keşfet</Link>
+                </Button>
+                <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10 hover-effect">
+                  <Link href="/mindfulness">Kurgu Şantiyesine Katıl</Link>
+                </Button>
+              </div>
+            </div>
+            <div className="relative h-[300px] md:h-[400px] lg:h-[500px] w-full md:w-[300px] lg:w-[400px] overflow-hidden rounded-lg shadow-xl">
+              <div className="absolute inset-0 border-2 border-primary/30 rounded-lg z-20 pointer-events-none"></div>
+              <Image
+                src="/images/author.jpg"
+                alt="Pınar Eğilmez"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                priority
+                className="object-cover rounded-lg hover-effect"
+              />
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* Featured Books */}
+      <section className="py-16 bg-card/50">
+        <div className="container">
+          <h2 className="text-3xl font-bold mb-8 text-center">Kitaplar</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Book 1 */}
+            <div className="bg-background rounded-lg overflow-hidden shadow-md transition-shadow hover:shadow-lg hover:shadow-primary/20 group">
+              <div className="relative h-80 w-full bg-muted">
+                <Image
+                  src="/images/book1.jpg"
+                  alt="Aklın Gölgeleri"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-2">Aklın Gölgeleri</h3>
+                <p className="text-foreground/70 mb-4 line-clamp-3">
+                  İnsan bilincinin en karanlık köşelerini keşfeden psikolojik bir gerilim.
+                </p>
+                <Button variant="ghost" className="text-primary hover:text-primary/90 hover:bg-primary/10 p-0 flex items-center gap-1" asChild>
+                  <Link href="/books">
+                    Devamını Oku <ChevronRight size={16} />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Book 2 */}
+            <div className="bg-background rounded-lg overflow-hidden shadow-md transition-shadow hover:shadow-lg hover:shadow-primary/20 group">
+              <div className="relative h-80 w-full bg-muted">
+                <Image
+                  src="/images/book2.jpg"
+                  alt="Karanlıktaki Fısıltılar"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-2">Karanlıktaki Fısıltılar</h3>
+                <p className="text-foreground/70 mb-4 line-clamp-3">
+                  Gerilim ve psikolojik manipülasyonun etkileyici bir hikayesi.
+                </p>
+                <Button variant="ghost" className="text-primary hover:text-primary/90 hover:bg-primary/10 p-0 flex items-center gap-1" asChild>
+                  <Link href="/books">
+                    Devamını Oku <ChevronRight size={16} />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Book 3 */}
+            <div className="bg-background rounded-lg overflow-hidden shadow-md transition-shadow hover:shadow-lg hover:shadow-primary/20 group">
+              <div className="relative h-80 w-full bg-muted">
+                <Image
+                  src="/images/book3.jpg"
+                  alt="Sessiz Gözlemci"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-2">Sessiz Gözlemci</h3>
+                <p className="text-foreground/70 mb-4 line-clamp-3">
+                  Algı, gerçeklik ve aradaki boşluklar hakkında zihin bükücü bir gerilim.
+                </p>
+                <Button variant="ghost" className="text-primary hover:text-primary/90 hover:bg-primary/10 p-0 flex items-center gap-1" asChild>
+                  <Link href="/books">
+                    Devamını Oku <ChevronRight size={16} />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div className="text-center mt-10">
+            <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary/10" asChild>
+              <Link href="/books">Tüm Kitapları Gör</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Image Carousel */}
+      <ImageCarousel 
+        title="Etkinliklerden Kareler"
+        description="Pınar Eğilmez'in katıldığı etkinliklerden, imza günlerinden ve söyleşilerden görüntüler."
+      />
+
+      {/* Features Section */}
+      <section className="py-16">
+        <div className="container">
+          <h2 className="text-3xl font-bold mb-12 text-center">Pınar'ın Dünyasını Keşfedin</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="flex flex-col items-center text-center p-6 bg-card rounded-lg card-hover">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                <BookOpenText className="w-8 h-8 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Kitaplar</h3>
+              <p className="text-foreground/70 mb-4">
+                Pınar'ın romanlarındaki heyecan verici dünyaları ve karmaşık karakterleri keşfedin.
+              </p>
+              <Button variant="link" className="text-primary mt-auto" asChild>
+                <Link href="/books">Koleksiyona Göz At</Link>
+              </Button>
+            </div>
+
+            <div className="flex flex-col items-center text-center p-6 bg-card rounded-lg card-hover">
+              <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mb-4">
+                <BookOpen className="w-8 h-8 text-accent" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Makaleler</h3>
+              <p className="text-foreground/70 mb-4">
+                Pınar'ın yazarlık, psikoloji ve mindfulness hakkındaki düşüncelerini okuyun.
+              </p>
+              <Button variant="link" className="text-accent mt-auto" asChild>
+                <Link href="/articles">Makaleleri Oku</Link>
+              </Button>
+            </div>
+
+            <div className="flex flex-col items-center text-center p-6 bg-card rounded-lg card-hover">
+              <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center mb-4">
+                <Music className="w-8 h-8 text-secondary" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Spotify</h3>
+              <p className="text-foreground/70 mb-4">
+                Pınar'ın podcast'lerini ve önerdiği çalma listelerini dinleyin.
+              </p>
+              <Button variant="link" className="text-secondary mt-auto" asChild>
+                <Link href="/spotify">Şimdi Dinle</Link>
+              </Button>
+            </div>
+
+            <div className="flex flex-col items-center text-center p-6 bg-card rounded-lg card-hover">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                <MessageSquareText className="w-8 h-8 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Kurgu Şantiyesi</h3>
+              <p className="text-foreground/70 mb-4">
+                Pınar tarafından yönetilen özel kurgu şantiyesi atölyelerine katılın.
+              </p>
+              <Button variant="link" className="text-primary mt-auto" asChild>
+                <Link href="/mindfulness">Şantiyeye Katıl</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Instagram Feed */}
+      <InstagramFeed />
+
+      {/* Newsletter Section */}
+      <section className="py-16 bg-gradient-to-r from-primary/10 via-accent/5 to-secondary/10">
+        <div className="container">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-4">Bağlantıda Kalın</h2>
+            <p className="text-foreground/80 mb-6">
+              Yeni kitaplar, kurgu şantiyesi ve özel içerikler hakkında güncellemeler için 
+              bültenime abone olun.
+            </p>
+            <form className="flex flex-col sm:flex-row gap-4 justify-center">
+              <input
+                type="email"
+                placeholder="E-posta adresiniz"
+                className="min-w-0 flex-1 px-4 py-3 rounded-md border border-input bg-background"
+                required
+              />
+              <Button type="submit" className="bg-primary hover:bg-primary/90">
+                Abone Ol
+              </Button>
+            </form>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

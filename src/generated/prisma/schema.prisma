@@ -1,0 +1,98 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  title       String
+  date        DateTime
+  startTime   DateTime
+  endTime     DateTime
+  location    String
+  type        String // book-signing, workshop, panel, interview, mindfulness
+  description String?
+  capacity    Int?
+  regRequired Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Book {
+  id            Int      @id @default(autoincrement())
+  title         String
+  coverImage    String?
+  description   String?
+  publishDate   DateTime
+  amazonLink    String?
+  goodreadsLink String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Article {
+  id          Int      @id @default(autoincrement())
+  title       String
+  content     String
+  excerpt     String?
+  coverImage  String?
+  publishDate DateTime
+  slug        String   @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Session {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  date        DateTime
+  duration    Int // duration in minutes
+  price       Float
+  capacity    Int?
+  bookings    Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Workshop {
+  id                 Int              @id @default(autoincrement())
+  title              String
+  images             String // Stored as JSON array string
+  category           WorkshopCategory
+  startDate          DateTime
+  endDate            DateTime
+  startTime          DateTime
+  endTime            DateTime
+  location           String
+  description        String
+  detailPageHeader   String
+  detailPageSection1 String
+  detailPageSection2 String
+  detailPageSection3 String
+  detailPageFooter   String
+  capacity           Int?
+  status             WorkshopStatus   @default(YAKLASANDA)
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+}
+
+enum WorkshopCategory {
+  ONLINE
+  KONAKLAMALI
+  KURUMSAL
+}
+
+enum WorkshopStatus {
+  DEVAM_EDIYOR
+  YAKLASANDA
+  TAMAMLANDI
+}

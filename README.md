@@ -20,6 +20,33 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Instagram API Integration
+
+This project includes an Instagram feed that displays the latest 3 posts from the author's Instagram account. To make this work, you need to set up Instagram API credentials:
+
+1. Visit the [Facebook for Developers](https://developers.facebook.com/) site and create a new app
+2. Set up the Instagram Basic Display API for your app
+3. Follow the steps to authenticate your Instagram account and obtain an access token
+4. Copy the `.env.local.example` file to `.env.local` and add your credentials:
+
+```bash
+# Instagram API Credentials
+INSTAGRAM_CLIENT_ID=your_instagram_client_id
+INSTAGRAM_CLIENT_SECRET=your_instagram_client_secret
+INSTAGRAM_ACCESS_TOKEN=your_instagram_access_token
+```
+
+The Instagram access token is the most important one and is required for the API to work. The token expires after a certain period, so you may need to refresh it periodically.
+
+### Mock Data Fallback
+
+The Instagram integration includes a fallback mechanism that uses mock data when:
+- Instagram API credentials are not configured
+- The Instagram API is unavailable or returns an error
+- There are network connectivity issues
+
+This ensures that your website always displays content in the Instagram section, even when the API cannot be accessed. The mock data is stored in the API route at `src/app/api/instagram/route.ts` and can be customized as needed.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
