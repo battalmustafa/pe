@@ -98,7 +98,7 @@ const sessions: KurguSantiyesiSession[] = [
       firstPayment: 12000,
       secondPayment: 24000
     },
-    contentPdf: "/pdf/kurgu-santiyesi-yogun-program.pdf",
+    contentPdf: "/pdf/kurgu-santiyesi-normal-program.pdf",
     features: [
       "Haftada bir kez email yoluyla bölüm alışverişi",
       "Ayda 4 kez 1.5 saatlik görüntülü görüşme",

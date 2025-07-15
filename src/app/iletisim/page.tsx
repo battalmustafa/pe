@@ -298,39 +298,7 @@ export default function Contact() {
         </div>
       </div>
       
-      {/* FAQ Section */}
-      <section className="py-16">
-        <h2 className="text-2xl font-bold mb-8">Sıkça Sorulan Sorular</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-primary">How quickly can I expect a response?</h3>
-            <p className="text-foreground/80">
-              Pınar and her team typically respond to inquiries within 2-3 business days.
-            </p>
-          </div>
-          
-          <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-primary">Can I request a book signing or event?</h3>
-            <p className="text-foreground/80">
-              Yes, please use the contact form and select "Events" in the subject line. Include details about your event.
-            </p>
-          </div>
-          
-          <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-primary">How do I request a review copy of a book?</h3>
-            <p className="text-foreground/80">
-              For review copies, please contact Pınar's literary agent directly with your credentials and publication details.
-            </p>
-          </div>
-          
-          <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-primary">Can I interview Pınar for my podcast/publication?</h3>
-            <p className="text-foreground/80">
-              Pınar is open to interview requests. Please provide details about your platform, audience, and proposed topics in your message.
-            </p>
-          </div>
-        </div>
-      </section>
+   
     </div>
   );
 } 
