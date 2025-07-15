@@ -67,12 +67,21 @@ export async function POST(request: NextRequest) {
         `;
         break;
 
+      case 'newsletter':
+        subject = 'Yeni Bülten Aboneliği';
+        html = `
+          <h2>Yeni Bülten Aboneliği</h2>
+          <p><strong>E-posta:</strong> ${formData.email}</p>
+          <p><strong>Kayıt Tarihi:</strong> ${new Date().toLocaleString('tr-TR')}</p>
+        `;
+        break;
+
       default:
         return NextResponse.json({ error: 'Invalid form type' }, { status: 400 });
     }
 
     const { data, error } = await resend.emails.send({
-      from: 'Pınar Eğilmez Website <onboarding@resend.dev>',
+      from: 'Pınar Eğilmez Website <noreply@pinaregilmez.com>',
       to: ['pinaregilmezmanagement@gmail.com'],
       subject: subject,
       html: html,

@@ -1,16 +1,59 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { 
   BookOpenText, 
   ChevronRight,
   Instagram,
-  MessageSquareText
+  MessageSquareText,
+  Loader2
 } from "lucide-react";
 import { ImageCarousel } from "@/components/image-carousel";
 import { books } from '@/data/books';
 
 export default function Home() {
+  const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setMessage('');
+    
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'newsletter',
+          formData: { email }
+        }),
+      });
+
+      if (response.ok) {
+        setIsSuccess(true);
+        setMessage('Başarıyla abone oldunuz! Teşekkür ederiz.');
+        setEmail('');
+      } else {
+        const error = await response.json();
+        setMessage('Bir hata oluştu. Lütfen tekrar deneyin.');
+        setIsSuccess(false);
+      }
+    } catch (error) {
+      setMessage('Bir hata oluştu. Lütfen tekrar deneyin.');
+      setIsSuccess(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -161,17 +204,40 @@ export default function Home() {
               Yeni kitaplar, kurgu şantiyesi ve özel içerikler hakkında güncellemeler için 
               bültenime abone olun.
             </p>
-            <form className="flex flex-col sm:flex-row gap-4 justify-center">
+            <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-4 justify-center">
               <input
                 type="email"
                 placeholder="E-posta adresiniz"
-                className="min-w-0 flex-1 px-4 py-3 rounded-md border border-input bg-background"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="min-w-0 flex-1 h-12 px-4 py-3 rounded-md border border-input bg-background"
                 required
+                disabled={isLoading}
               />
-              <Button type="submit" className="bg-primary hover:bg-primary/90">
-                Abone Ol
+              <Button 
+                type="submit" 
+                className="bg-primary hover:bg-primary/90 h-12 px-6"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Gönderiliyor...
+                  </>
+                ) : (
+                  'Abone Ol'
+                )}
               </Button>
             </form>
+            {message && (
+              <div className={`mt-4 p-3 rounded-md ${
+                isSuccess 
+                  ? 'bg-green-100 text-green-700 border border-green-200' 
+                  : 'bg-red-100 text-red-700 border border-red-200'
+              }`}>
+                {message}
+              </div>
+            )}
           </div>
         </div>
       </section>
