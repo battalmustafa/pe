@@ -187,7 +187,7 @@ export default function Home() {
                 Pınar tarafından yönetilen özel kurgu şantiyesi atölyelerine katılın.
               </p>
               <Button variant="link" className="text-primary mt-auto" asChild>
-                <Link href="/mindfulness">Şantiyeye Katıl</Link>
+                <Link href="/kurgu-santiyesi">Şantiyeye Katıl</Link>
               </Button>
             </div>
           </div>
