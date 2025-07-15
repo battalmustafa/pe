@@ -88,8 +88,8 @@ export default function WorkshopRegistrationPage({ params }: { params: Promise<{
       }
 
       toast({
-        title: "Kayıt Başarılı",
-        description: "Atölye kaydınız başarıyla gönderildi. En kısa sürede size dönüş yapılacaktır.",
+        title: "Kayıt İsteği Başarılı",
+        description: "Atölye kayıt isteğiniz başarıyla gönderildi. En kısa sürede size dönüş yapılacaktır.",
       });
 
       // Reset form
@@ -109,7 +109,7 @@ export default function WorkshopRegistrationPage({ params }: { params: Promise<{
       console.error('Error sending email:', error);
       toast({
         title: "Hata",
-        description: "Kayıt gönderilirken bir hata oluştu. Lütfen tekrar deneyin.",
+        description: "Kayıt isteği gönderilirken bir hata oluştu. Lütfen tekrar deneyin.",
         variant: "destructive",
       });
     } finally {
@@ -249,7 +249,7 @@ export default function WorkshopRegistrationPage({ params }: { params: Promise<{
             </div>
 
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? "Kayıt Gönderiliyor..." : "Kayıt Ol"}
+              {isSubmitting ? "Kayıt İsteği Gönderiliyor..." : "Kayıt İstegi Gönder"}
             </Button>
           </form>
         </CardContent>

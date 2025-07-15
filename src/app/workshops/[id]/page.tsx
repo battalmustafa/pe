@@ -199,7 +199,7 @@ export default async function WorkshopDetailPage({ params }: { params: Promise<{
             {workshop.status === 'DEVAM_EDIYOR' ? (
               <Button size="lg" className="w-full" asChild>
                 <Link href={`/workshops/${workshop.id}/kayit`}>
-                  Kayıt Ol
+                  Kayıt İstegi Gönder
                 </Link>
               </Button>
             ) : (
