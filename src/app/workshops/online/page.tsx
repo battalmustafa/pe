@@ -41,12 +41,12 @@ function formatTime(time: Date | string) {
 function getFirstImage(images: any) {
   try {
     if (Array.isArray(images)) {
-      return images[0] || '/placeholder-workshop.jpg';
+      return images[0] || '/eii-logo.png';
     }
     const parsedImages = JSON.parse(images);
-    return parsedImages[0] || '/placeholder-workshop.jpg';
+    return parsedImages[0] || '/eii-logo.png';
   } catch (e) {
-    return '/placeholder-workshop.jpg';
+    return '/eii-logo.png';
   }
 }
 
