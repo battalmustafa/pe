@@ -49,7 +49,7 @@ export default function WorkshopRegistrationPage({ params }: { params: Promise<{
   const fetchWorkshop = async (id: string) => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/workshops/${id}`);
+      const response = await fetch(`/api/workshops?id=${id}`);
       if (!response.ok) {
         throw new Error('Workshop bulunamadı');
       }
