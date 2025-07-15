@@ -9,19 +9,28 @@ import WorkshopForm from "@/components/WorkshopForm";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/components/ui/use-toast";
 
-export default async function EditWorkshopPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+export default function EditWorkshopPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const { toast } = useToast();
   const [workshop, setWorkshop] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [workshopId, setWorkshopId] = useState<string | null>(null);
+
+  // Handle params Promise
+  useEffect(() => {
+    params.then(({ id }) => {
+      setWorkshopId(id);
+    });
+  }, [params]);
 
   useEffect(() => {
+    if (!workshopId) return;
+
     async function fetchWorkshop() {
       try {
         setLoading(true);
-        const response = await fetch(`/api/workshops?id=${id}`);
+        const response = await fetch(`/api/workshops?id=${workshopId}`);
         
         if (!response.ok) {
           if (response.status === 404) {
@@ -41,8 +50,7 @@ export default async function EditWorkshopPage({ params }: { params: Promise<{ i
     }
 
     fetchWorkshop();
-  }, [id]);
-
+  }, [workshopId]);
   // If workshop not found, show error and redirect
   if (error) {
     toast({

@@ -123,9 +123,15 @@ export default function WorkshopForm({ initialData, isEditing = false }: Worksho
   useEffect(() => {
     if (initialData && initialData.images) {
       try {
-        const parsedImages = JSON.parse(initialData.images);
-        if (Array.isArray(parsedImages)) {
-          setImages(parsedImages);
+        // Check if images is already an array
+        if (Array.isArray(initialData.images)) {
+          setImages(initialData.images);
+        } else if (typeof initialData.images === 'string') {
+          // If it's a string, try to parse it as JSON
+          const parsedImages = JSON.parse(initialData.images);
+          if (Array.isArray(parsedImages)) {
+            setImages(parsedImages);
+          }
         }
       } catch (error) {
         console.error("Error parsing images:", error);

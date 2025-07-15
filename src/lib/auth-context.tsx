@@ -32,7 +32,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (username: string, password: string) => {
     // For this simple implementation, hardcode the credentials
     // In a real app, you'd want to use an API and proper authentication
-    if (username === "admin" && password === "admin") {
+    if (username === "admin" && password === "pe2502") {
       setIsAuthenticated(true);
       try {
         localStorage.setItem("isAuthenticated", "true");
