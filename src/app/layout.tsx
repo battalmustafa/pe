@@ -20,6 +20,11 @@ const lato = Lato({
 export const metadata: Metadata = {
   title: "Pınar Eğilmez | Yazar",
   description: "Yazar Pınar Eğilmez'in resmi web sitesi - Kitaplar, Mindfulness Seansları, Makaleler ve daha fazlası",
+  icons: {
+    icon: "/images/fav.png",
+    shortcut: "/images/fav.png",
+    apple: "/images/fav.png",
+  },
 };
 
 export default function RootLayout({
