@@ -61,7 +61,6 @@ export default function HizliBasvuru() {
           throw new Error('Failed to fetch workshops');
         }
         const data = await response.json();
-        console.log(data);
         setWorkshops(data.filter((workshop: Workshop) => workshop.status === "DEVAM_EDIYOR"));
       } catch (error) {
         console.error('Error fetching workshops:', error);
