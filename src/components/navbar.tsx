@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { 
   Sheet, 
   SheetContent, 
-  SheetTrigger 
+  SheetTrigger,
+  SheetTitle
 } from "@/components/ui/sheet";
 import { Menu, X } from "lucide-react";
 import { ThemeSwitcher } from "@/components/theme-switcher";
@@ -88,6 +89,7 @@ export function Navbar() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[80%] sm:w-[350px] bg-card">
+                <SheetTitle className="sr-only">Mobil Menü</SheetTitle>
                 <nav className="flex flex-col justify-center items-center gap-4 mt-8">
                   {NavItems.map((item) => (
                     <Link
