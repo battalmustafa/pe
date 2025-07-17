@@ -1,4 +1,39 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Biyografi",
+  description: "Pınar Eğilmez'in biyografisi. 1975 doğumlu yazar. Hacettepe Üniversitesi mezunu, psiko-kurgu tarzının öncülerinden.",
+  keywords: [
+    "Pınar Eğilmez biyografi",
+    "Pınar Eğilmez kimdir",
+    "Türk yazar biyografi",
+    "psiko-kurgu",
+    "Hacettepe Üniversitesi",
+    "mindfulness uzmanı"
+  ],
+  openGraph: {
+    title: "Pınar Eğilmez Biyografi",
+    description: "1975 doğumlu yazar, psikolog ve mindfulness uzmanı Pınar Eğilmez'in biyografisi.",
+    url: "https://pinaregilmez.com/biography",
+    images: [
+      {
+        url: "/images/author-bio.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Pınar Eğilmez Biyografi",
+      },
+    ],
+  },
+  twitter: {
+    title: "Pınar Eğilmez Biyografi",
+    description: "1975 doğumlu yazar, psikolog ve mindfulness uzmanı Pınar Eğilmez'in biyografisi.",
+    images: ["/images/author-bio.jpg"],
+  },
+  alternates: {
+    canonical: "/biography",
+  },
+};
 
 export default function Biography() {
   return (

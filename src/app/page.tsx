@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { ImageCarousel } from "@/components/image-carousel";
 import { books } from '@/data/books';
+import { StructuredData, personSchema } from "@/components/structured-data";
 
 export default function Home() {
   const [email, setEmail] = useState('');
@@ -55,8 +56,10 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
+    <>
+      <StructuredData data={personSchema} />
+      <div className="flex flex-col">
+        {/* Hero Section */}
       <section className="relative py-20 md:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-primary/10 to-secondary/5 z-0"></div>
         <div className="absolute inset-0 bg-[url('/images/texture.png')] opacity-10 z-0"></div>
@@ -242,5 +245,6 @@ export default function Home() {
         </div>
       </section>
     </div>
+    </>
   );
 }

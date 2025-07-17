@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://pinaregilmez.com/sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /api/
+
+# Allow important pages
+Allow: /books/
+Allow: /workshops/
+Allow: /articles/
+Allow: /biography/
+Allow: /media/
+Allow: /kurgu-santiyesi/
+
+# Crawl delay (optional)
+Crawl-delay: 1 

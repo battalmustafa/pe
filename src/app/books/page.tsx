@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,41 @@ import {
 
 // Import book data
 import { books } from "@/data/books";
+
+export const metadata: Metadata = {
+  title: "Kitaplar",
+  description: "Pınar Eğilmez'in tüm kitapları. Romanlar, psikoloji kitapları. Türk edebiyatının önde gelen yazarlarından Pınar Eğilmez'in eserlerini keşfedin.",
+  keywords: [
+    "Pınar Eğilmez kitapları",
+    "Türk romanları",
+    "psikoloji kitapları",
+    "mindfulness kitapları",
+    "Türk edebiyatı",
+    "roman",
+    "kitap"
+  ],
+  openGraph: {
+    title: "Pınar Eğilmez'in Kitapları",
+    description: "Pınar Eğilmez'in tüm kitapları. Romanlar, psikoloji kitapları.",
+    url: "https://pinaregilmez.com/books",
+    images: [
+      {
+        url: "/images/book1.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Pınar Eğilmez Kitapları",
+      },
+    ],
+  },
+  twitter: {
+    title: "Pınar Eğilmez'in Kitapları",
+    description: "Pınar Eğilmez'in tüm kitapları. Romanlar, psikoloji kitapları.",
+    images: ["/images/book1.jpg"],
+  },
+  alternates: {
+    canonical: "/books",
+  },
+};
 
 export default function Books() {
   return (

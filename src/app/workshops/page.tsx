@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
@@ -6,6 +7,42 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Clock, Calendar, MapPin, Users } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: "Eİİ Atölyeler",
+  description: "Pınar Eğilmez'in Edebiyat ile İyileşme (Eİİ) atölyeleri. Online, konaklamalı ve kurumsal atölyeler. Mindfulness, yazarlık ve psikoloji atölyeleri.",
+  keywords: [
+    "Eİİ atölyeleri",
+    "Edebiyat ile İyileşme",
+    "mindfulness atölyesi",
+    "yazarlık atölyesi",
+    "psikoloji atölyesi",
+    "online atölye",
+    "konaklamalı atölye",
+    "kurumsal atölye"
+  ],
+  openGraph: {
+    title: "Eİİ Atölyeler - Edebiyat ile İyileşme",
+    description: "Pınar Eğilmez'in Edebiyat ile İyileşme (Eİİ) atölyeleri. Online, konaklamalı ve kurumsal atölyeler.",
+    url: "https://pinaregilmez.com/workshops",
+    images: [
+      {
+        url: "/images/eii-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Eİİ Atölyeler",
+      },
+    ],
+  },
+  twitter: {
+    title: "Eİİ Atölyeler - Edebiyat ile İyileşme",
+    description: "Pınar Eğilmez'in Edebiyat ile İyileşme (Eİİ) atölyeleri. Online, konaklamalı ve kurumsal atölyeler.",
+    images: ["/images/eii-logo.png"],
+  },
+  alternates: {
+    canonical: "/workshops",
+  },
+};
 
 // Define the Workshop interface
 interface Workshop {

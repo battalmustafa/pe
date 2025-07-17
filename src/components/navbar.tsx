@@ -85,7 +85,6 @@ export function Navbar() {
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <span>Menü</span>
-                  <span className="sr-only">Menüyü aç/kapat</span>
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[80%] sm:w-[350px] bg-card">
