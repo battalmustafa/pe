@@ -14,6 +14,7 @@ interface Workshop {
   id: number;
   title: string;
   category: string;
+  status: string;
 }
 
 interface KurguSantiyesiProgram {
@@ -60,7 +61,8 @@ export default function HizliBasvuru() {
           throw new Error('Failed to fetch workshops');
         }
         const data = await response.json();
-        setWorkshops(data);
+        console.log(data);
+        setWorkshops(data.filter((workshop: Workshop) => workshop.status === "DEVAM_EDIYOR"));
       } catch (error) {
         console.error('Error fetching workshops:', error);
         setError('Atölyeler yüklenirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
