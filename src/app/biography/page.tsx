@@ -45,14 +45,14 @@ export default function Biography() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
         <div className="col-span-1">
           <div className="sticky top-24">
-            <div className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full overflow-hidden rounded-lg shadow-lg mb-6">
+            <div className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full max-w-[384px] mx-auto lg:mx-0 overflow-hidden rounded-lg shadow-lg mb-6">
               <div className="absolute inset-0 border-2 border-primary/30 rounded-lg z-20 pointer-events-none"></div>
               <Image
                 src="/images/author-bio.jpg"
                 alt="Pınar Eğilmez"
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-contain rounded-lg"
+                className="object-contain lg:object-cover rounded-lg"
               />
             </div>
             
