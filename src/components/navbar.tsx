@@ -25,6 +25,7 @@ const NavItems = [
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,6 +35,10 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleMobileItemClick = () => {
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <header
@@ -74,27 +79,28 @@ export function Navbar() {
           </nav>
           
           {/* Mobile Navigation */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="md:hidden flex items-center justify-center gap-2">
             <ThemeSwitcher />
-            <Sheet>
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
-                  <Menu className="h-6 w-6" />
+                  <span>Menü</span>
                   <span className="sr-only">Menüyü aç/kapat</span>
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[80%] sm:w-[350px] bg-card">
-                <nav className="flex flex-col gap-4 mt-8">
+                <nav className="flex flex-col justify-center items-center gap-4 mt-8">
                   {NavItems.map((item) => (
                     <Link
                       key={item.name}
                       href={item.href}
                       className="text-lg font-medium py-2 text-foreground/90 hover:text-primary transition-colors"
+                      onClick={handleMobileItemClick}
                     >
                       {item.name}
                     </Link>
                   ))}
-                  <Button className="mt-4 bg-primary hover:bg-primary/90">
+                  <Button className="mt-4 bg-primary hover:bg-primary/90" onClick={handleMobileItemClick}>
                     <Link href="/hizli-basvuru">
                       Hızlı Başvuru
                     </Link>
